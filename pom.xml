@@ -21,6 +21,7 @@
         <fastjson.version>1.2.74</fastjson.version>
         <oshi.version>5.2.5</oshi.version>
         <myatbis.plus.version>3.2.0</myatbis.plus.version>
+        <ew.version>1.0-SNAPSHOT</ew.version>
     </properties>
 
     <dependencyManagement>
@@ -92,6 +93,18 @@
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
                 <version>${myatbis.plus.version}</version>
+            </dependency>
+            
+            <dependency>
+            	<groupId>com.ew</groupId>
+            	<artifactId>common</artifactId>
+            	<version>${ew.version}</version>
+            </dependency>
+            
+            <dependency>
+            	<groupId>com.ew</groupId>
+            	<artifactId>system</artifactId>
+            	<version>${ew.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
