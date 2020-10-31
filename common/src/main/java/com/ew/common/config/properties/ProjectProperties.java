@@ -17,6 +17,10 @@ public class ProjectProperties {
 
     /** 是否开启Swagger数据接口文档 */
     private boolean swaggerEnabled = true;
+    
+    /** 跨域:设置你要允许的网站域名，如果全允许则设为 '*' */
+    private String corsAllowedOrigin = "*";
+    
     /** druid 权限配置 */
     private Druid druid = new Druid();
     
