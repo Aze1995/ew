@@ -11,7 +11,5 @@ import com.ew.modules.system.entity.ActionLog;
  * @Date 2020-10-30 18:20:35
  */
 public interface ActionLogMapper extends BaseMapper<ActionLog> {
-
-	Date test();
 	
 }
