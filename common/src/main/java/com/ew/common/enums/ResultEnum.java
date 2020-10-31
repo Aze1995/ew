@@ -14,6 +14,10 @@ public enum ResultEnum {
      * 通用状态
      */
     SUCCESS(0, "成功"),
+    
+    REQUEST_ERROR_PARAMETER(10,"请求参数不合法"),
+	REQUEST_ERROR_BUSINESS (11,"请求成功执行业务失败"),
+	
     ;
 
     private Integer code;
