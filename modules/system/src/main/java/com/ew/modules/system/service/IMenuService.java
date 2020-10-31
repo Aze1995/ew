@@ -1,5 +1,8 @@
 package com.ew.modules.system.service;
 
-public interface IMenuService {
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.ew.modules.system.entity.Menu;
+
+public interface IMenuService extends IService<Menu>{
 
 }

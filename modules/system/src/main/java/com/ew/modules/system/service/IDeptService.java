@@ -1,5 +1,8 @@
 package com.ew.modules.system.service;
 
-public interface IDeptService {
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.ew.modules.system.entity.Dept;
+
+public interface IDeptService extends IService<Dept>{
 
 }
