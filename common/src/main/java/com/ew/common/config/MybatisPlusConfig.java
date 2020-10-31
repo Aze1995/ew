@@ -7,7 +7,6 @@ import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 
 /**
  * 配置分页插件
- *
  */
 @Configuration
 public class MybatisPlusConfig {
@@ -17,7 +16,9 @@ public class MybatisPlusConfig {
      */
     @Bean
     public PaginationInterceptor paginationInterceptor() {
-    	
         return new PaginationInterceptor();
     }
+    
+    
+    
 }

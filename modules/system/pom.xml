@@ -13,18 +13,25 @@
 	<packaging>jar</packaging>
 
 	<dependencies>
+
+		<dependency>
+			<groupId>com.ew</groupId>
+			<artifactId>common</artifactId>
+		</dependency>
+
 		<!-- Mybatis Plus -->
 		<dependency>
 			<groupId>com.baomidou</groupId>
 			<artifactId>mybatis-plus-boot-starter</artifactId>
 		</dependency>
 
+
 		<!-- Lombok 工具 -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 		</dependency>
-		
+
 	</dependencies>
 
 </project>
