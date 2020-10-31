@@ -126,6 +126,12 @@
 				<artifactId>system</artifactId>
 				<version>${ew.version}</version>
 			</dependency>
+			<!-- 光年后台模板UI -->
+			<dependency>
+				<groupId>com.ew</groupId>
+				<artifactId>Light-Year-Admin-Ui</artifactId>
+				<version>${ew.version}</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 

@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50712
 File Encoding         : 65001
 
-Date: 2020-10-31 15:23:05
+Date: 2020-11-01 00:26:28
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -35,6 +35,15 @@ CREATE TABLE `sys_action_log` (
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='系统-行为日志';
 
 -- ----------------------------
+-- Records of sys_action_log
+-- ----------------------------
+INSERT INTO `sys_action_log` VALUES ('1', null, null, null, null, null, null, 'test', null, null, null);
+INSERT INTO `sys_action_log` VALUES ('2', null, null, null, null, null, null, 'test', '2020-10-31 14:38:35', null, null);
+INSERT INTO `sys_action_log` VALUES ('3', null, null, null, null, null, null, 'test', '2020-10-31 14:43:07', null, null);
+INSERT INTO `sys_action_log` VALUES ('4', null, null, null, null, null, null, 'test', '2020-10-31 14:45:18', null, null);
+INSERT INTO `sys_action_log` VALUES ('5', null, null, null, null, null, null, 'test', '2020-10-31 14:47:02', null, '1');
+
+-- ----------------------------
 -- Table structure for sys_dept
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_dept`;
@@ -52,6 +61,10 @@ CREATE TABLE `sys_dept` (
   `status` tinyint(4) DEFAULT NULL COMMENT '状态（1:正常,2:删除）',
   PRIMARY KEY (`dept_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COMMENT='系统-部门';
+
+-- ----------------------------
+-- Records of sys_dept
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for sys_menu
@@ -74,7 +87,17 @@ CREATE TABLE `sys_menu` (
   `update_by` bigint(20) DEFAULT NULL COMMENT '更新用户',
   `status` tinyint(4) DEFAULT NULL COMMENT '状态（1:正常,2:删除）',
   PRIMARY KEY (`menu_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=164 DEFAULT CHARSET=utf8 COMMENT='系统-菜单';
+) ENGINE=InnoDB AUTO_INCREMENT=170 DEFAULT CHARSET=utf8 COMMENT='系统-菜单';
+
+-- ----------------------------
+-- Records of sys_menu
+-- ----------------------------
+INSERT INTO `sys_menu` VALUES ('164', '首页', '0', null, null, null, 'mdi-home', '1', '0', null, null, null, null, null, '1');
+INSERT INTO `sys_menu` VALUES ('165', '用户管理', '167', null, null, null, '', '2', '10', null, null, null, null, null, '1');
+INSERT INTO `sys_menu` VALUES ('166', '部门管理', '167', null, null, null, '', '1', '11', null, null, null, null, null, '1');
+INSERT INTO `sys_menu` VALUES ('167', '系统', '0', null, null, null, 'mdi-shield', '2', '1', null, null, null, null, null, '1');
+INSERT INTO `sys_menu` VALUES ('168', '财务', '0', null, null, null, 'mdi-square-inc-cash', '1', '3', null, null, null, null, null, '1');
+INSERT INTO `sys_menu` VALUES ('169', '会员', '0', null, null, null, 'mdi-account-multiple', '1', '2', null, null, null, null, null, '1');
 
 -- ----------------------------
 -- Table structure for sys_role
@@ -93,6 +116,16 @@ CREATE TABLE `sys_role` (
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COMMENT='系统-角色';
 
 -- ----------------------------
+-- Records of sys_role
+-- ----------------------------
+INSERT INTO `sys_role` VALUES ('4', 'instrt', null, null, null, null, null, null);
+INSERT INTO `sys_role` VALUES ('5', 'update', null, null, null, null, null, '2');
+INSERT INTO `sys_role` VALUES ('6', 'update', null, null, null, null, null, '2');
+INSERT INTO `sys_role` VALUES ('7', 'update', null, '2020-10-31 14:25:00', '2020-10-31 14:25:00', null, null, '2');
+INSERT INTO `sys_role` VALUES ('8', 'update', null, '2020-10-31 14:30:49', '2020-10-31 14:30:50', null, null, '2');
+INSERT INTO `sys_role` VALUES ('9', 'update', null, '2020-10-31 14:32:12', null, null, null, '2');
+
+-- ----------------------------
 -- Table structure for sys_role_menu
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_role_menu`;
@@ -101,6 +134,10 @@ CREATE TABLE `sys_role_menu` (
   `menu_id` bigint(20) NOT NULL,
   PRIMARY KEY (`role_id`,`menu_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='系统-角色菜单';
+
+-- ----------------------------
+-- Records of sys_role_menu
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for sys_user
@@ -124,4 +161,10 @@ CREATE TABLE `sys_user` (
   `update_by` bigint(20) DEFAULT NULL COMMENT '更新人',
   `status` tinyint(4) DEFAULT NULL COMMENT '状态（1:正常,2:删除）',
   PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='系统-用户';
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='系统-用户';
+
+-- ----------------------------
+-- Records of sys_user
+-- ----------------------------
+INSERT INTO `sys_user` VALUES ('4', 'zs', '十三香', '123456', null, null, null, '1', '123@163.com', '13544672759', null, '2020-10-31 19:04:32', '1', '2020-10-31 19:04:32', '1', '1');
+INSERT INTO `sys_user` VALUES ('9', null, null, null, null, null, null, null, null, null, null, '2020-10-31 19:14:55', '1', '2020-10-31 19:14:55', '1', '1');

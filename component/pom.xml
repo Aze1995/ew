@@ -15,6 +15,7 @@
     <modules>
         <module>shiro</module>
         <module>actionLog</module>
+        <module>Light-Year-Admin-Ui</module>
     </modules>
 
 
