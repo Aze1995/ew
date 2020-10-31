@@ -1,5 +1,7 @@
 package com.ew.modules.system.mapper;
 
+import java.util.Date;
+
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.ew.modules.system.entity.ActionLog;
 
@@ -10,4 +12,6 @@ import com.ew.modules.system.entity.ActionLog;
  */
 public interface ActionLogMapper extends BaseMapper<ActionLog> {
 
+	Date test();
+	
 }

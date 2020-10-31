@@ -4,14 +4,9 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.Filter;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 import javax.sql.DataSource;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
@@ -19,15 +14,15 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.alibaba.druid.pool.DruidDataSource;
-import com.alibaba.druid.spring.boot.autoconfigure.properties.DruidStatProperties;
 import com.alibaba.druid.support.http.StatViewServlet;
 import com.alibaba.druid.util.Utils;
+import com.ew.common.config.properties.ProjectProperties;
+import com.ew.common.config.properties.ProjectProperties.Druid;
 
 import lombok.extern.slf4j.Slf4j;
 
 /**
  * Druid 数据库连接池配置
- * 
  * @author Mr`Huang
  * @Date 2020-10-30 17:07:07
  */
@@ -35,17 +30,11 @@ import lombok.extern.slf4j.Slf4j;
 @Configuration
 public class DruidConfig {
 
-	@Value("${druid.login.user-name:admin}")
-	private String userName;
-
-	@Value("${druid.login.password:123456}")
-	private String password;
-
-	@Value("${druid.allow.ip:}")
-	private String allowIp;
+	@Autowired
+	private ProjectProperties properties;
 
 	/** 必须配置数据源，不然无法获取到sql监控，与sql防火墙监控 */
-	@Bean(name = "default_databaseSource")
+	@Bean(name = "default_databaseSource",destroyMethod = "close",initMethod = "init")
 	@ConfigurationProperties(prefix = "spring.datasource")
 	public DataSource druidDataSource() {
 		return new DruidDataSource();
@@ -58,12 +47,13 @@ public class DruidConfig {
 		ServletRegistrationBean servletRegistrationBean = new ServletRegistrationBean();
 		servletRegistrationBean.setServlet(new StatViewServlet());
 		servletRegistrationBean.addUrlMappings("/druid/*");
+		Druid druid = properties.getDruid();
 		Map<String, String> initParameters = new HashMap<String, String>();
-		initParameters.put("loginUsername", userName);// 用户名
-		initParameters.put("loginPassword", password);// 密码
+		initParameters.put("loginUsername", druid.getUserName());// 用户名
+		initParameters.put("loginPassword", druid.getPassword());// 密码
 		initParameters.put("resetEnable", "false");// 禁用HTML页面上的“Reset All”功能
-		// initParameters.put("allow", allowIp); // IP白名单 (没有配置或者为空，则允许所有访问)
-		// initParameters.put("deny", "");// IP黑名单 (存在共同时，deny优先于allow)
+		initParameters.put("allow", druid.getAllowIp()); // IP白名单 (没有配置或者为空，则允许所有访问)
+	    initParameters.put("deny", druid.getDenyIp());// IP黑名单 (存在共同时，deny优先于allow)
 		servletRegistrationBean.setInitParameters(initParameters);
 		return servletRegistrationBean;
 	}
