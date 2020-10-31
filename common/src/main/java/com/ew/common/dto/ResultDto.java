@@ -25,7 +25,7 @@ public class ResultDto<T> {
 		this.data = data;
 	}
 	
-	@ApiModelProperty(notes = "响应状态( 0 成功)")
+	@ApiModelProperty(notes = "响应状态(成功:0)")
 	private Integer code;
 	@ApiModelProperty(notes = "响应描述")
 	private String message;
