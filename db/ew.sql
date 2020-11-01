@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50712
 File Encoding         : 65001
 
-Date: 2020-11-01 00:26:28
+Date: 2020-11-02 00:44:11
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -93,7 +93,7 @@ CREATE TABLE `sys_menu` (
 -- Records of sys_menu
 -- ----------------------------
 INSERT INTO `sys_menu` VALUES ('164', '首页', '0', null, null, null, 'mdi-home', '1', '0', null, null, null, null, null, '1');
-INSERT INTO `sys_menu` VALUES ('165', '用户管理', '167', null, null, null, '', '2', '10', null, null, null, null, null, '1');
+INSERT INTO `sys_menu` VALUES ('165', '用户管理', '167', null, '/system/lyear_ui_tables.html', null, '', '2', '10', null, null, null, null, null, '1');
 INSERT INTO `sys_menu` VALUES ('166', '部门管理', '167', null, null, null, '', '1', '11', null, null, null, null, null, '1');
 INSERT INTO `sys_menu` VALUES ('167', '系统', '0', null, null, null, 'mdi-shield', '2', '1', null, null, null, null, null, '1');
 INSERT INTO `sys_menu` VALUES ('168', '财务', '0', null, null, null, 'mdi-square-inc-cash', '1', '3', null, null, null, null, null, '1');
@@ -166,5 +166,5 @@ CREATE TABLE `sys_user` (
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES ('4', 'zs', '十三香', '123456', null, null, null, '1', '123@163.com', '13544672759', null, '2020-10-31 19:04:32', '1', '2020-10-31 19:04:32', '1', '1');
-INSERT INTO `sys_user` VALUES ('9', null, null, null, null, null, null, null, null, null, null, '2020-10-31 19:14:55', '1', '2020-10-31 19:14:55', '1', '1');
+INSERT INTO `sys_user` VALUES ('4', 'zs', '十三香', '123456', '1', null, null, '1', '123@163.com', '13544672759', 'bz', '2020-10-31 19:04:32', '1', '2020-10-31 19:04:32', '1', '1');
+INSERT INTO `sys_user` VALUES ('9', 'admin', '超级管理员', '123456', '1', null, null, '1', '123@163.com', '13544672759', 'bz2', '2020-10-31 19:14:55', '1', '2020-10-31 19:14:55', '1', '1');

@@ -15,7 +15,7 @@
 		<link href="css/style.min.css" rel="stylesheet">
 	</head>
 
-	<body onload="load()">
+	<body >
 		<div class="lyear-layout-web">
 			<div class="lyear-layout-container">
 				<!--左侧导航-->
@@ -243,10 +243,10 @@
 		<script type="text/javascript" src="js/index.min.js"></script>
 		<script src="js/template-web.js"></script>
 		<script type="application/javascript">
-			function load() {
-
+		$(function(){
+			
 				$.ajax({
-					url: "http://127.0.0.1:8081/system/menu/list",
+					url: "/system/menu/list",
 					context: {},
 					success: function(data) {
 
@@ -259,7 +259,7 @@
 					}
 				});
 
-			}
+		});
 		</script>
 
 	</body>
