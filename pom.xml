@@ -23,6 +23,8 @@
 		<myatbis.plus.version>3.2.0</myatbis.plus.version>
 		<swagger.ui.version>2.9.2</swagger.ui.version>
 		<swagger-bootstrap-ui.version>1.9.6</swagger-bootstrap-ui.version>
+		<mybatis-plus-generator.version>3.4.0</mybatis-plus-generator.version>
+		<velocity-engine-core.version>2.2</velocity-engine-core.version>
 		<ew.version>1.0-SNAPSHOT</ew.version>
 	</properties>
 
@@ -95,6 +97,17 @@
 				<groupId>com.baomidou</groupId>
 				<artifactId>mybatis-plus-boot-starter</artifactId>
 				<version>${myatbis.plus.version}</version>
+			</dependency>
+			<!-- Mybatis Plus 代码生成 -->
+			<dependency>
+				<groupId>com.baomidou</groupId>
+				<artifactId>mybatis-plus-generator</artifactId>
+				<version>${mybatis-plus-generator.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.velocity</groupId>
+				<artifactId>velocity-engine-core</artifactId>
+				<version>${velocity-engine-core.version}</version>
 			</dependency>
 			<!-- Swagger 接口文档工具 -->
 			<dependency>
