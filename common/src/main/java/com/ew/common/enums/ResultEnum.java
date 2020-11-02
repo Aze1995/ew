@@ -15,9 +15,10 @@ public enum ResultEnum {
      */
     SUCCESS(0, "成功"),
     
-    REQUEST_ERROR_PARAMETER(10,"请求参数不合法"),
-	REQUEST_ERROR_BUSINESS (11,"请求成功执行业务失败"),
+    REQUEST_ERROR_PARAMETER(101,"请求参数不合法"),
+	REQUEST_ERROR_BUSINESS (102,"请求成功执行业务失败"),
 	
+	SYSTEM_ERROR_UNDEFINED (801,"内部系统异常"),
     ;
 
     private Integer code;

@@ -37,6 +37,16 @@ public class ResultDtoUtil {
 			return new ResultDto<T>(ResultEnum.REQUEST_ERROR_PARAMETER,null);
 		}
 		
+		/**
+		 * 请求参数不合法
+		 * @param <T>
+		 * @param message	描述信息
+		 * @return
+		 */
+		public static <T> ResultDto<T> parameter(String message){
+			return setDtoMessage(parameter(), message);
+		}
+		
 		/**请求成功执行业务失败*/
 		public static <T> ResultDto<T> business(){
 			return new ResultDto<T>(ResultEnum.REQUEST_ERROR_BUSINESS,null);
@@ -49,11 +59,37 @@ public class ResultDtoUtil {
 		 * @return
 		 */
 		public static <T> ResultDto<T> business(String message){
-			ResultDto<T> business = business();
-			business.setMessage(message);
-			return business;
+			return setDtoMessage(business(), message);
 		}
 		
 	}
 	
+	/**
+	 *  系统异常
+	 * @author Mr`Huang
+	 * @Date 2020-11-2 18:04:15
+	 */
+	public static class SystemError{
+		
+		/**
+		 *   系统未定义异常
+		 * @param <T>
+		 * @return
+		 */
+		public static <T> ResultDto<T> undefined(){
+			return new ResultDto<T>(ResultEnum.SYSTEM_ERROR_UNDEFINED,null);
+		}
+	}
+	
+	/**
+	 * 自定义响应消息
+	 * @param <T>
+	 * @param dto			dto
+	 * @param message		描述消息
+	 * @return
+	 */
+	private static <T> ResultDto<T> setDtoMessage(ResultDto<T> dto,String message){
+		dto.setMessage(message);
+		return dto;
+	}
 }
