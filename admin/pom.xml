@@ -19,10 +19,6 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<scope>runtime</scope>
 		</dependency>
-		<dependency>
-			<groupId>io.springfox</groupId>
-			<artifactId>springfox-swagger-ui</artifactId>
-		</dependency>
 		<!-- Swagger Bootstrap UI 样式 -->
 		<dependency>
 			<groupId>com.github.xiaoymin</groupId>

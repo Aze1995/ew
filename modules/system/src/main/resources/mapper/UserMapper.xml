@@ -12,10 +12,11 @@
         <result column="sex" property="sex" />
         <result column="email" property="email" />
         <result column="phone" property="phone" />
+        <result column="user_id" property="userId" />
     </resultMap>
 
     <select id="findUserInfo" resultMap="ResultUserVo">
-        select phone,email,sex,picture,nickname,username,remark,
+        select user_id,phone,email,sex,picture,nickname,username,remark,
         (SELECT d.title from sys_dept d where d.dept_id = sys_user.dept_id) dept_name,
         (SELECT r.title from sys_role r WHERE r.role_id = sys_user.role_id ) role_name 
         from sys_user ${ew.customSqlSegment}

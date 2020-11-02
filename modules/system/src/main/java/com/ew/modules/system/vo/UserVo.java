@@ -8,6 +8,9 @@ import lombok.Data;
 @ApiModel(value="用户", description="系统-用户")
 public class UserVo {
 
+	@ApiModelProperty(value = "用户标识")
+	private Integer userId;
+	
     @ApiModelProperty(value = "用户名")
     private String username;
 
