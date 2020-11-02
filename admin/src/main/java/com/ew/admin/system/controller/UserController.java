@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,6 +16,7 @@ import com.ew.common.utils.ResultDtoUtil;
 import com.ew.common.utils.ResultDtoUtil.RequestError;
 import com.ew.modules.system.entity.User;
 import com.ew.modules.system.service.IUserService;
+import com.ew.modules.system.vo.UserVo;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -33,14 +35,19 @@ public class UserController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = "pageNumb",defaultValue = "1",value = "查询页码",required = false,paramType = "query"),
 		@ApiImplicitParam(name = "pagSize",defaultValue = "10",value = "每页条数",required = false,paramType = "query"),
+		@ApiImplicitParam(name = "userName",value = "登入名",required = false,paramType = "query"),
+		@ApiImplicitParam(name = "nickname",value = "用户昵称",required = false,paramType = "query"),
+		@ApiImplicitParam(name = "phone",value = "手机号",required = false,paramType = "query"),
 	})
 	@GetMapping(path = "list")
-	public ResultDto<IPage<User>> list(
+	public ResultDto<IPage<UserVo>> list(
 				@RequestParam(name = "pageNumb",required = false,defaultValue = "1") Integer pageNumb,
-				@RequestParam(name = "pagSize",required = false,defaultValue = "1") Integer pagSize
+				@RequestParam(name = "pagSize",required = false,defaultValue = "1") Integer pagSize,
+				String userName, String nickname, String phone
 			){
-		IPage<User> page = userService.page(new Page<User>(pageNumb, pagSize));
-		return ResultDtoUtil.success(page);
+		IPage<User> page = new Page<User>(pageNumb, pagSize);
+		IPage<UserVo> userInfo = userService.findUserInfo(page, userName, nickname, phone);
+		return ResultDtoUtil.success(userInfo);
 	}
 	
 	@ApiOperation(value = "查询用户信息")
@@ -58,7 +65,7 @@ public class UserController {
 	
 	@ApiOperation(value = "添加用户信息")
 	@PostMapping(path = "/add")
-	public ResultDto<Boolean> add(User user){
+	public ResultDto<Boolean> add(@RequestBody User user){
 		if (userService.save(user)) {
 			return ResultDtoUtil.success(); 
 		}
@@ -67,7 +74,7 @@ public class UserController {
 	
 	@ApiOperation(value = "更新用户信息")
 	@PostMapping(path = "/update")
-	public ResultDto<Boolean> update(User user){
+	public ResultDto<Boolean> update(@RequestBody User user){
 		if (userService.updateById(user)) {
 			return ResultDtoUtil.success(); 
 		}

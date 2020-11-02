@@ -1,7 +1,6 @@
 package com.ew.modules.system.vo;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import io.swagger.annotations.ApiModel;
