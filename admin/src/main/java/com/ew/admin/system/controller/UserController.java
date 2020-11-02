@@ -1,6 +1,11 @@
 package com.ew.admin.system.controller;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.ew.admin.system.form.UserForm;
 import com.ew.common.dto.ResultDto;
 import com.ew.common.utils.ResultDtoUtil;
 import com.ew.common.utils.ResultDtoUtil.RequestError;
@@ -24,6 +30,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 
 @Api(tags = "用户管理")
+@Validated
 @RestController
 @RequestMapping("/system/user")
 public class UserController {
@@ -55,7 +62,8 @@ public class UserController {
 		@ApiImplicitParam(name = "userId",value = "用户标识",required = true,paramType = "path"),
 	})
 	@GetMapping(path = "/query/{userId}")
-	public ResultDto<User> queryById(@PathVariable(name = "userId",required = true) Long userId){
+	public ResultDto<User> queryById(
+			@NotNull @Min(value = 1) @PathVariable(name = "userId",required = true) Long userId){
 		User user = userService.getById(userId);
 		if (user == null) {
 			return RequestError.business("用户标识有误");	
@@ -65,7 +73,10 @@ public class UserController {
 	
 	@ApiOperation(value = "添加用户信息")
 	@PostMapping(path = "/add")
-	public ResultDto<Boolean> add(@RequestBody User user){
+	public ResultDto<Boolean> add(@RequestBody @Validated UserForm userForm){
+		System.err.println(userForm);
+		User user = new User();
+		BeanUtils.copyProperties(userForm,user);
 		if (userService.save(user)) {
 			return ResultDtoUtil.success(); 
 		}
@@ -73,8 +84,15 @@ public class UserController {
 	}
 	
 	@ApiOperation(value = "更新用户信息")
-	@PostMapping(path = "/update")
-	public ResultDto<Boolean> update(@RequestBody User user){
+	@ApiImplicitParams({
+		@ApiImplicitParam(name = "userId",value = "用户标识",required = true,paramType = "path"),
+	})
+	@PostMapping(path = "/update/{userId}")
+	public ResultDto<Boolean> update(@RequestBody @Validated UserForm userForm,
+			@NotNull @Min(value = 1) @PathVariable(name = "userId",required = true) Integer userId){
+		User user = new User();
+		BeanUtils.copyProperties(userForm,user);
+		user.setUserId(userId);
 		if (userService.updateById(user)) {
 			return ResultDtoUtil.success(); 
 		}
@@ -87,12 +105,12 @@ public class UserController {
 		@ApiImplicitParam(name = "userId",value = "用户标识",required = true,paramType = "path"),
 	})
 	@PostMapping(path = "/delete/{userId}")
-	public ResultDto<Boolean> delete(@PathVariable(name = "userId",required = true) Long userId){
+	public ResultDto<Boolean> delete(
+			@NotNull @Min(value = 1) @PathVariable(name = "userId",required = true) Integer userId){
 		if (userService.removeById(userId)) {
 			return ResultDtoUtil.success(); 
 		}
 		return RequestError.business("删除失败"); 
 	}
-	
 	
 }

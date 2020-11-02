@@ -2,9 +2,11 @@ package com.ew.common.advice;
 
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 
 import org.springframework.validation.BindException;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -26,19 +28,22 @@ public class ApiExceptionHandler {
 	/** 表单参数Form提交时, valid校验不通过时通用拦截 */
 	@ExceptionHandler(value = BindException.class)
 	public ResultDto<String> hadeBindException(BindException exception) {
-		return ResultDtoUtil.RequestError.parameter(exception.getFieldError().getDefaultMessage());
+		FieldError fieldError = exception.getFieldError();
+		return ResultDtoUtil.RequestError.parameter(fieldError.getField()+"-"+fieldError.getDefaultMessage());
 	}
 	
 	/** RequestBody参数提交时, valid校验不通过时通用拦截 */
 	@ExceptionHandler(value = MethodArgumentNotValidException.class)
 	public ResultDto<String> hadeMethodArgumentNotValidException(MethodArgumentNotValidException exception) {
-		return ResultDtoUtil.RequestError.parameter(exception.getBindingResult().getFieldError().getDefaultMessage()); 
+		FieldError fieldError = exception.getBindingResult().getFieldError();
+		return ResultDtoUtil.RequestError.parameter(fieldError.getField()+"-"+fieldError.getDefaultMessage()); 
 	}
 	 
 	/** 方法单个参数提交, valid校验不通过时拦截 */
 	@ExceptionHandler(value = ConstraintViolationException.class)
 	public ResultDto<String> hadeConstraintViolationException(ConstraintViolationException exception) {
-		return ResultDtoUtil.RequestError.parameter(exception.getConstraintViolations().iterator().next().getMessage()); 
+		ConstraintViolation<?> next = exception.getConstraintViolations().iterator().next();
+		return ResultDtoUtil.RequestError.parameter(next.getPropertyPath()+"-"+next.getMessage()); 
 	}
 	
 	/** 其他错误 */
