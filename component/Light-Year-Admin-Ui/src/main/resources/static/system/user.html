@@ -47,11 +47,61 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
         <h4 class="modal-title" id="myLargeModalLabel">用户详情</h4>
       </div>
-      <div class="modal-body">
-        您的内容...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal">确认</button>
+      <div class="modal-body table-responsive">
+            <table class="table table-bordered table-striped">
+
+              <tbody>
+                <tr>
+                  <th class="text-nowrap" scope="row">栅格系统行为</th>
+                  <td>总是水平排列</td>
+                  <td colspan="3">开始是堆叠在一起的，当大于这些阈值时将变为水平排列C</td>
+                </tr>
+                <tr>
+                  <th class="text-nowrap" scope="row"><code>.container</code> 最大宽度</th>
+                  <td>None （自动）</td>
+                  <td>750px</td>
+                  <td>970px</td>
+                  <td>1170px</td>
+                </tr>
+                <tr>
+                  <th class="text-nowrap" scope="row">类前缀</th>
+                  <td><code>.col-xs-</code></td>
+                  <td><code>.col-sm-</code></td>
+                  <td><code>.col-md-</code></td>
+                  <td><code>.col-lg-</code></td>
+                </tr>
+                <tr>
+                  <th class="text-nowrap" scope="row">列（column）数</th>
+                  <td colspan="4">12</td>
+                </tr>
+                <tr>
+                  <th class="text-nowrap" scope="row">最大列（column）宽</th>
+                  <td class="text-muted">自动</td>
+                  <td>~62px</td>
+                  <td>~81px</td>
+                  <td>~97px</td>
+                </tr>
+                <tr>
+                  <th class="text-nowrap" scope="row">槽（gutter）宽</th>
+                  <td colspan="4">30px （每列左右均有 15px）</td>
+                </tr>
+                <tr>
+                  <th class="text-nowrap" scope="row">可嵌套</th>
+                  <td colspan="4">是</td>
+                </tr>
+                <tr>
+                  <th class="text-nowrap" scope="row">偏移（Offsets）</th>
+                  <td colspan="4">是</td>
+                </tr>
+                <tr>
+                  <th class="text-nowrap" scope="row">列排序</th>
+                  <td colspan="4">是</td>
+                </tr>
+              </tbody>
+            </table>
+        <div class="modal-footer">
+         <button type="button" class="btn btn-primary" data-dismiss="modal">确认</button>
+        </div>
       </div>
     </div>
   </div>
