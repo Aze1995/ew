@@ -49,7 +49,7 @@ public class UserController {
 	@GetMapping(path = "list")
 	public ResultDto<IPage<UserVo>> list(
 				@RequestParam(name = "pageNumb",required = false,defaultValue = "1") Integer pageNumb,
-				@RequestParam(name = "pagSize",required = false,defaultValue = "1") Integer pagSize,
+				@RequestParam(name = "pagSize",required = false,defaultValue = "10") Integer pagSize,
 				String userName, String nickname, String phone
 			){
 		IPage<User> page = new Page<User>(pageNumb, pagSize);
