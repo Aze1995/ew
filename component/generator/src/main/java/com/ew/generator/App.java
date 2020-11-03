@@ -23,7 +23,7 @@ public class App {
 		autoGenerator.setGlobalConfig(getGlobalConfig());//全局配置
 		autoGenerator.setPackageInfo(getPackageConfig());//包名配置
 		autoGenerator.setStrategy(getStrategyConfig());//生成策略配置
-//		autoGenerator.setTemplate(getTemplateConfig());//自定义生成模板
+		autoGenerator.setTemplate(getTemplateConfig());//自定义生成模板
 		autoGenerator.execute();
 		
 	}
@@ -87,18 +87,22 @@ public class App {
 		strategyConfig.setEntityTableFieldAnnotationEnable(true);//是否生成实体时，生成字段注解
 		strategyConfig.setNaming(NamingStrategy.underline_to_camel);//表名开启驼峰
 		strategyConfig.setColumnNaming(NamingStrategy.underline_to_camel);//字段名开启驼峰
-//		strategyConfig.setInclude("sys_menu");//生成代码表名 支持正则
+		strategyConfig.setInclude("sys_menu");//生成代码表名 支持正则
 		strategyConfig.setEntityLombokModel(true);//实体为lombok模式
 		
 		strategyConfig.setSuperEntityClass("com.ew.common.base.BaseEntity");//实体类父类
 		strategyConfig.setSuperEntityColumns("remark","status","update_by","update_date","create_by","create_date");//父类公共字段
+		
+		strategyConfig.setSuperServiceClass("com.ew.common.base.IBaseService");
+		
 		
 		return strategyConfig;
 	}
 	
 	public static TemplateConfig getTemplateConfig() {
 		TemplateConfig templateConfig =new TemplateConfig();
-//		templateConfig.setXml("templates/MyMapper.xml.vm");
+		//https://gitee.com/baomidou/mybatis-plus/tree/3.0/mybatis-plus-generator/src/main/resources/templates
+		templateConfig.setService("/templates/EwService.java.vm");
 		return templateConfig;
 	}
 

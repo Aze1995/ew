@@ -1,0 +1,29 @@
+package ${package.Service};
+
+import ${package.Entity}.${entity};
+import ${superServiceClassPackage};
+
+/**
+ * <p>
+ * $!{table.comment} 服务类
+ * </p>
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+#if(${kotlin})
+interface ${table.serviceName} : ${superServiceClass}<${entity}>
+#else
+public interface ${table.serviceName} extends ${superServiceClass}<${entity}> {
+
+	default boolean updateById(${entity} entity,Long id) {
+	#foreach($field in ${table.fields})
+		#if(${field.keyIdentityFlag})  ## 给表主键设置值
+		entity.set${field.capitalName}(id);
+		#end
+	#end
+		return updateById(entity);
+	}
+
+}
+#end
