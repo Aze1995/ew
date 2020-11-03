@@ -63,6 +63,7 @@ public class App {
 		globalConfig.setAuthor("Hr`Huang");//作者名称
 		globalConfig.setOpen(true);//生成完毕是大开目录
 		globalConfig.setBaseResultMap(true);//xml答应 ResultMap
+		globalConfig.setSwagger2(true);//开启Swagger2
 		String outputDir = "E:\\tmp\\code";
 		globalConfig.setOutputDir(outputDir);//保存路径
 		//--- 生成类目命名格式 ---
@@ -86,7 +87,7 @@ public class App {
 		strategyConfig.setEntityTableFieldAnnotationEnable(true);//是否生成实体时，生成字段注解
 		strategyConfig.setNaming(NamingStrategy.underline_to_camel);//表名开启驼峰
 		strategyConfig.setColumnNaming(NamingStrategy.underline_to_camel);//字段名开启驼峰
-		strategyConfig.setInclude("sys_menu");//生成代码表名 支持正则
+//		strategyConfig.setInclude("sys_menu");//生成代码表名 支持正则
 		strategyConfig.setEntityLombokModel(true);//实体为lombok模式
 		
 		strategyConfig.setSuperEntityClass("com.ew.common.base.BaseEntity");//实体类父类
