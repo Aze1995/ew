@@ -3,13 +3,10 @@ package com.ew.admin.system.controller;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
-import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,6 +15,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.ew.admin.system.form.UserForm;
 import com.ew.common.Constant.DefaultConst;
+import com.ew.common.base.BaseAbstractController;
 import com.ew.common.dto.ResultDto;
 import com.ew.common.utils.ResultDtoUtil;
 import com.ew.common.utils.ResultDtoUtil.RequestError;
@@ -34,10 +32,7 @@ import io.swagger.annotations.ApiOperation;
 @Validated
 @RestController
 @RequestMapping("/system/user")
-public class UserController {
-	
-	@Autowired
-	private IUserService userService;
+public class UserController extends BaseAbstractController<IUserService,User,UserForm> {
 	
 	@ApiOperation(value = "用户列表")
 	@ApiImplicitParams({
@@ -47,57 +42,15 @@ public class UserController {
 		@ApiImplicitParam(name = "nickname",value = "用户昵称",required = false,paramType = "query"),
 		@ApiImplicitParam(name = "phone",value = "手机号",required = false,paramType = "query"),
 	})
-	@GetMapping(path = "list")
-	public ResultDto<IPage<UserVo>> list(
+	@GetMapping(path = "listVo")
+	public ResultDto<IPage<UserVo>> listVo(
 				@RequestParam(name = "pageNumb",required = false,defaultValue = "1") Integer pageNumb,
 				@RequestParam(name = "pagSize",required = false,defaultValue = "10") Integer pagSize,
 				String userName, String nickname, String phone
 			){
 		IPage<User> page = new Page<User>(pageNumb, pagSize);
-		IPage<UserVo> userInfo = userService.findUserInfo(page, userName, nickname, phone);
+		IPage<UserVo> userInfo = baseService.findUserInfo(page, userName, nickname, phone);
 		return ResultDtoUtil.success(userInfo);
-	}
-	
-	@ApiOperation(value = "查询用户信息")
-	@ApiImplicitParams({
-		@ApiImplicitParam(name = "userId",value = "用户标识",required = true,paramType = "path"),
-	})
-	@GetMapping(path = "/query/{userId}")
-	public ResultDto<User> queryById(
-			@NotNull @Min(value = 1) @PathVariable(name = "userId",required = true) Long userId){
-		User user = userService.getById(userId);
-		if (user == null) {
-			return RequestError.business("用户标识有误");	
-		}
-		return ResultDtoUtil.success(user);
-	}
-	
-	@ApiOperation(value = "添加用户信息")
-	@PostMapping(path = "/add")
-	public ResultDto<Boolean> add(@RequestBody @Validated UserForm userForm){
-		User user = new User();
-		BeanUtils.copyProperties(userForm,user);
-		user.setPassword(DefaultConst.USER_PASSWORD);//使用默认密码
-		if (userService.save(user)) {
-			return ResultDtoUtil.success(); 
-		}
-		return RequestError.business("添加失败");  
-	}
-	
-	@ApiOperation(value = "编辑用户信息")
-	@ApiImplicitParams({
-		@ApiImplicitParam(name = "userId",value = "用户标识",required = true,paramType = "path"),
-	})
-	@PostMapping(path = "/edit/{userId}")
-	public ResultDto<Boolean> edit(@RequestBody @Validated UserForm userForm,
-			@NotNull @Min(value = 1) @PathVariable(name = "userId",required = true) Long userId){
-		User user = new User();
-		BeanUtils.copyProperties(userForm,user);
-		user.setUserId(userId);
-		if (userService.updateById(user)) {
-			return ResultDtoUtil.success(); 
-		}
-		return RequestError.business("更新失败");  
 	}
 	
 	@ApiOperation(value = "重置用户密码")
@@ -107,23 +60,16 @@ public class UserController {
 	@PostMapping(path = "/resetPassWord/{userId}")
 	public ResultDto<Boolean> resetPassWord(
 			@NotNull @Min(value = 1) @PathVariable(name = "userId",required = true) Long userId){
-		if (userService.updateUserPassWord(userId, DefaultConst.USER_PASSWORD)) {
+		if (baseService.updateUserPassWord(userId, DefaultConst.USER_PASSWORD)) {
 			return ResultDtoUtil.success(); 
 		}
 		return RequestError.business("重置失败"); 
 	}
-	
-	@ApiOperation(value = "删除用户信息")
-	@ApiImplicitParams({
-		@ApiImplicitParam(name = "userId",value = "用户标识",required = true,paramType = "path"),
-	})
-	@PostMapping(path = "/delete/{userId}")
-	public ResultDto<Boolean> delete(
-			@NotNull @Min(value = 1) @PathVariable(name = "userId",required = true) Long userId){
-		if (userService.removeById(userId)) {
-			return ResultDtoUtil.success(); 
-		}
-		return RequestError.business("删除失败"); 
+
+	@Override
+	protected User newInstance() {
+		return new User();
 	}
+
 	
 }
