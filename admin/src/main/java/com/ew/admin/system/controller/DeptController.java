@@ -22,7 +22,6 @@ public class DeptController extends BaseAbstractController<IDeptService,Dept, De
 		return new Dept();
 	}
 
-
 	
 	
 }
