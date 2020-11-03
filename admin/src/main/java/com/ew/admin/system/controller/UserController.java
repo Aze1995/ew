@@ -18,6 +18,10 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.ew.admin.system.form.UserForm;
 import com.ew.common.Constant.DefaultConst;
+import com.ew.common.base.IBaseService;
+import com.ew.common.base.controller.DeleteMapping;
+import com.ew.common.base.controller.QueryMapping;
+import com.ew.common.base.controller.UpdateMapping;
 import com.ew.common.dto.ResultDto;
 import com.ew.common.utils.ResultDtoUtil;
 import com.ew.common.utils.ResultDtoUtil.RequestError;
@@ -34,96 +38,60 @@ import io.swagger.annotations.ApiOperation;
 @Validated
 @RestController
 @RequestMapping("/system/user")
-public class UserController {
-	
+public class UserController implements UpdateMapping<IUserService, User, UserForm>, QueryMapping<IUserService, User>,
+		DeleteMapping<IUserService, User> {
+
 	@Autowired
 	private IUserService userService;
+
+	@ApiOperation(value = "添加")
+	@PostMapping("add")
+	public ResultDto<Boolean> add(@RequestBody @Validated UserForm form) {
+		User entity = newInstance();
+		BeanUtils.copyProperties(form,entity);
+		entity.setPassword(DefaultConst.USER_PASSWORD);//新增用户初始化密码
+		if (getService().save(entity)) {
+			return ResultDtoUtil.success();
+		}
+		return RequestError.business("添加失败");
+	}
 	
 	@ApiOperation(value = "用户列表")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = "pageNumb",defaultValue = "1",value = "查询页码",required = false,paramType = "query"),
-		@ApiImplicitParam(name = "pagSize",defaultValue = "10",value = "每页条数",required = false,paramType = "query"),
-		@ApiImplicitParam(name = "userName",value = "登入名",required = false,paramType = "query"),
-		@ApiImplicitParam(name = "nickname",value = "用户昵称",required = false,paramType = "query"),
-		@ApiImplicitParam(name = "phone",value = "手机号",required = false,paramType = "query"),
-	})
-	@GetMapping(path = "list")
-	public ResultDto<IPage<UserVo>> list(
-				@RequestParam(name = "pageNumb",required = false,defaultValue = "1") Integer pageNumb,
-				@RequestParam(name = "pagSize",required = false,defaultValue = "10") Integer pagSize,
-				String userName, String nickname, String phone
-			){
+			@ApiImplicitParam(name = "pageNumb", defaultValue = "1", value = "查询页码", required = false, paramType = "query"),
+			@ApiImplicitParam(name = "pagSize", defaultValue = "10", value = "每页条数", required = false, paramType = "query"),
+			@ApiImplicitParam(name = "userName", value = "登入名", required = false, paramType = "query"),
+			@ApiImplicitParam(name = "nickname", value = "用户昵称", required = false, paramType = "query"),
+			@ApiImplicitParam(name = "phone", value = "手机号", required = false, paramType = "query"), })
+	@GetMapping(path = "listVo")
+	public ResultDto<IPage<UserVo>> listVo(
+			@RequestParam(name = "pageNumb", required = false, defaultValue = "1") Integer pageNumb,
+			@RequestParam(name = "pagSize", required = false, defaultValue = "10") Integer pagSize, String userName,
+			String nickname, String phone) {
 		IPage<User> page = new Page<User>(pageNumb, pagSize);
 		IPage<UserVo> userInfo = userService.findUserInfo(page, userName, nickname, phone);
 		return ResultDtoUtil.success(userInfo);
 	}
-	
-	@ApiOperation(value = "查询用户信息")
-	@ApiImplicitParams({
-		@ApiImplicitParam(name = "userId",value = "用户标识",required = true,paramType = "path"),
-	})
-	@GetMapping(path = "/query/{userId}")
-	public ResultDto<User> queryById(
-			@NotNull @Min(value = 1) @PathVariable(name = "userId",required = true) Long userId){
-		User user = userService.getById(userId);
-		if (user == null) {
-			return RequestError.business("用户标识有误");	
-		}
-		return ResultDtoUtil.success(user);
-	}
-	
-	@ApiOperation(value = "添加用户信息")
-	@PostMapping(path = "/add")
-	public ResultDto<Boolean> add(@RequestBody @Validated UserForm userForm){
-		User user = new User();
-		BeanUtils.copyProperties(userForm,user);
-		user.setPassword(DefaultConst.USER_PASSWORD);//使用默认密码
-		if (userService.save(user)) {
-			return ResultDtoUtil.success(); 
-		}
-		return RequestError.business("添加失败");  
-	}
-	
-	@ApiOperation(value = "编辑用户信息")
-	@ApiImplicitParams({
-		@ApiImplicitParam(name = "userId",value = "用户标识",required = true,paramType = "path"),
-	})
-	@PostMapping(path = "/edit/{userId}")
-	public ResultDto<Boolean> edit(@RequestBody @Validated UserForm userForm,
-			@NotNull @Min(value = 1) @PathVariable(name = "userId",required = true) Long userId){
-		User user = new User();
-		BeanUtils.copyProperties(userForm,user);
-		user.setUserId(userId);
-		if (userService.updateById(user)) {
-			return ResultDtoUtil.success(); 
-		}
-		return RequestError.business("更新失败");  
-	}
-	
+
 	@ApiOperation(value = "重置用户密码")
-	@ApiImplicitParams({
-		@ApiImplicitParam(name = "userId",value = "用户标识",required = true,paramType = "path"),
-	})
+	@ApiImplicitParams({ @ApiImplicitParam(name = "userId", value = "用户标识", required = true, paramType = "path"), })
 	@PostMapping(path = "/resetPassWord/{userId}")
 	public ResultDto<Boolean> resetPassWord(
-			@NotNull @Min(value = 1) @PathVariable(name = "userId",required = true) Long userId){
+			@NotNull @Min(value = 1) @PathVariable(name = "userId", required = true) Long userId) {
 		if (userService.updateUserPassWord(userId, DefaultConst.USER_PASSWORD)) {
-			return ResultDtoUtil.success(); 
+			return ResultDtoUtil.success();
 		}
-		return RequestError.business("重置失败"); 
+		return RequestError.business("重置失败");
 	}
-	
-	@ApiOperation(value = "删除用户信息")
-	@ApiImplicitParams({
-		@ApiImplicitParam(name = "userId",value = "用户标识",required = true,paramType = "path"),
-	})
-	@PostMapping(path = "/delete/{userId}")
-	public ResultDto<Boolean> delete(
-			@NotNull @Min(value = 1) @PathVariable(name = "userId",required = true) Long userId){
-		if (userService.removeById(userId)) {
-			return ResultDtoUtil.success(); 
-		}
-		return RequestError.business("删除失败"); 
+
+	@Override
+	public User newInstance() {
+		return new User();
 	}
-	
+
+	@Override
+	public IBaseService<User> getService() {
+		return userService;
+	}
+
 }

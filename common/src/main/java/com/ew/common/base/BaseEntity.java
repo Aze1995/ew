@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.ew.common.enums.StatusEnum;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,26 +24,37 @@ public class BaseEntity implements Serializable {
 	private static final long serialVersionUID = 4696188299613846119L;
 	
     // 备注
+	@ApiModelProperty(hidden = true)
 	@JSONField(serialize = false)
     private String remark;
+	
     // 创建时间
+	@ApiModelProperty(hidden = true)
 	@JSONField(serialize = false)
     @TableField(fill = FieldFill.INSERT)
     private Date createDate;
+	
     // 创建者
+	@ApiModelProperty(hidden = true)
 	@JSONField(serialize = false)
     @TableField(fill = FieldFill.INSERT)
     private Long createBy;
+	
     // 更新时间
+	@ApiModelProperty(hidden = true)
 	@JSONField(serialize = false)
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private Date updateDate;
+	
     // 更新者
+	@ApiModelProperty(hidden = true)
 	@JSONField(serialize = false)
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private Long updateBy;
+	
     // 数据状态
     @TableLogic
+    @ApiModelProperty(hidden = true)
     @JSONField(serialize = false)
     @TableField(select = false)
     private Integer status = StatusEnum.OK.getCode();

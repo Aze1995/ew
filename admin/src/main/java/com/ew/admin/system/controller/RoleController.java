@@ -4,25 +4,22 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ew.admin.system.form.DeptForm;
+import com.ew.admin.system.form.RoleFrom;
 import com.ew.common.base.BaseAbstractController;
-import com.ew.modules.system.entity.Dept;
-import com.ew.modules.system.service.IDeptService;
+import com.ew.modules.system.entity.Role;
+import com.ew.modules.system.service.IRoleService;
 
 import io.swagger.annotations.Api;
 
-@Api(tags = "部门管理")
+@Api(tags = "角色管理")
 @Validated
 @RestController
-@RequestMapping("/system/dept")
-public class DeptController extends BaseAbstractController<IDeptService,Dept, DeptForm> {
+@RequestMapping("/system/role")
+public class RoleController extends BaseAbstractController<IRoleService, Role, RoleFrom> {
 
 	@Override
-	public Dept newInstance() {
-		return new Dept();
+	public Role newInstance() {
+		return new Role();
 	}
 
-
-	
-	
 }

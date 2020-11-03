@@ -38,12 +38,10 @@ public class WebJsonConfig {
 		FastJsonConfig fastJsonConfig = new FastJsonConfig();
 	    fastJsonConfig.setSerializerFeatures(
 	    		SerializerFeature.WriteNullListAsEmpty,
+	    		SerializerFeature.WriteDateUseDateFormat,//处理日期时间格式化问题      
 	    		SerializerFeature.WriteMapNullValue,   
 	    		SerializerFeature.WriteNullStringAsEmpty,  
 	    		SerializerFeature.WriteNullNumberAsZero);
-	    
-        //处理日期时间格式化问题        
-	    fastJsonConfig.setDateFormat("yyyy-MM-dd HH:mm:ss");
 	    
 		// 中文乱码解决方案
 		List<MediaType> mediaTypes = new ArrayList<>();

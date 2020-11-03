@@ -1,8 +1,6 @@
 package com.ew.common.dto;
 
 import com.ew.common.enums.ResultEnum;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -16,7 +14,6 @@ import lombok.Data;
  */
 @Data
 @ApiModel("响应结果")
-@JsonInclude(Include.NON_NULL)
 public class ResultDto<T> {
 	
 	public ResultDto(ResultEnum resultEnum, T data) {

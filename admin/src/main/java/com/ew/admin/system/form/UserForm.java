@@ -22,10 +22,6 @@ public class UserForm {
     private String nickname;
 
 	@NotBlank
-    @ApiModelProperty(value = "密码")
-    private String password;
-	
-	@NotBlank
     @ApiModelProperty(value = "电话号码")
     private String phone;
 

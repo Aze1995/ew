@@ -5,7 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 @Data
-@ApiModel(value="用户", description="系统-用户")
+@ApiModel(value="用户VO", description="系统-用户")
 public class UserVo {
 
 	@ApiModelProperty(value = "用户标识")
