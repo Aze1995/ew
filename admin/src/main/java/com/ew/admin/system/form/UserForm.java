@@ -28,12 +28,12 @@ public class UserForm {
 	@NotNull
 	@Min(value = 1)
     @ApiModelProperty(value = "部门ID")
-    private Integer deptId;
+    private Long deptId;
 
 	@NotNull
 	@Min(value = 1)
     @ApiModelProperty(value = "角色id")
-    private Integer roleId;
+    private Long roleId;
 	
     @ApiModelProperty(value = "头像")
     private String picture;

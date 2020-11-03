@@ -2,8 +2,6 @@ package com.ew.admin.system.form;
 
 import javax.validation.constraints.NotBlank;
 
-import com.baomidou.mybatisplus.annotation.TableField;
-
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
