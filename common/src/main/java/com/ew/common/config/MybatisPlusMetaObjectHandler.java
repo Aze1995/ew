@@ -28,20 +28,20 @@ public class MybatisPlusMetaObjectHandler implements MetaObjectHandler {
 	
 	@Override
 	public void insertFill(MetaObject metaObject) {
-		Object createBy = getFieldValByName("createBy", metaObject);
-		if (createBy == null) {
-			setInsertFieldValByName("createBy", 1L, metaObject);
-		}
+//		Object createBy = getFieldValByName("createBy", metaObject);
+//		if (createBy == null) {
+//			setInsertFieldValByName("createBy", 1L, metaObject);
+//		}
 		setInsertFieldValByName("createDate", new Date(), metaObject);
 		updateFill(metaObject);
 	}
 
 	@Override
 	public void updateFill(MetaObject metaObject) {
-		Object updateBy = getFieldValByName("updateBy", metaObject);
-		if (updateBy == null) {
-			setUpdateFieldValByName("updateBy", 1L, metaObject);
-		}
+//		Object updateBy = getFieldValByName("updateBy", metaObject);
+//		if (updateBy == null) {
+//			setUpdateFieldValByName("updateBy", 1L, metaObject);
+//		}
 		setUpdateFieldValByName("updateDate", new Date(), metaObject);
 	}
 
