@@ -6,6 +6,15 @@ package com.ew.common;
  * @Date 2020年10月31日 下午12:39:39
  */
 public class Constant {
+	
+	/**默认配置常量*/
+	public class DefaultConst{
+		/** 用户初始化密码 */
+		public static final String USER_PASSWORD = "123456";
+		/** 菜单，部门 父级 PID */
+		public static final long TOP_LEVE_PID = 0L;
+	}
+	
 
 	/**数据状态常量*/
 	public class StatusConst {

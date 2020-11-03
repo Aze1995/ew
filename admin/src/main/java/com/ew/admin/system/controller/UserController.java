@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.ew.admin.system.form.UserForm;
+import com.ew.common.Constant.DefaultConst;
 import com.ew.common.dto.ResultDto;
 import com.ew.common.utils.ResultDtoUtil;
 import com.ew.common.utils.ResultDtoUtil.RequestError;
@@ -74,22 +75,22 @@ public class UserController {
 	@ApiOperation(value = "添加用户信息")
 	@PostMapping(path = "/add")
 	public ResultDto<Boolean> add(@RequestBody @Validated UserForm userForm){
-		System.err.println(userForm);
 		User user = new User();
 		BeanUtils.copyProperties(userForm,user);
+		user.setPassword(DefaultConst.USER_PASSWORD);//使用默认密码
 		if (userService.save(user)) {
 			return ResultDtoUtil.success(); 
 		}
 		return RequestError.business("添加失败");  
 	}
 	
-	@ApiOperation(value = "更新用户信息")
+	@ApiOperation(value = "编辑用户信息")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = "userId",value = "用户标识",required = true,paramType = "path"),
 	})
-	@PostMapping(path = "/update/{userId}")
-	public ResultDto<Boolean> update(@RequestBody @Validated UserForm userForm,
-			@NotNull @Min(value = 1) @PathVariable(name = "userId",required = true) Integer userId){
+	@PostMapping(path = "/edit/{userId}")
+	public ResultDto<Boolean> edit(@RequestBody @Validated UserForm userForm,
+			@NotNull @Min(value = 1) @PathVariable(name = "userId",required = true) Long userId){
 		User user = new User();
 		BeanUtils.copyProperties(userForm,user);
 		user.setUserId(userId);
@@ -99,6 +100,18 @@ public class UserController {
 		return RequestError.business("更新失败");  
 	}
 	
+	@ApiOperation(value = "重置用户密码")
+	@ApiImplicitParams({
+		@ApiImplicitParam(name = "userId",value = "用户标识",required = true,paramType = "path"),
+	})
+	@PostMapping(path = "/resetPassWord/{userId}")
+	public ResultDto<Boolean> resetPassWord(
+			@NotNull @Min(value = 1) @PathVariable(name = "userId",required = true) Long userId){
+		if (userService.updateUserPassWord(userId, DefaultConst.USER_PASSWORD)) {
+			return ResultDtoUtil.success(); 
+		}
+		return RequestError.business("重置失败"); 
+	}
 	
 	@ApiOperation(value = "删除用户信息")
 	@ApiImplicitParams({
@@ -106,7 +119,7 @@ public class UserController {
 	})
 	@PostMapping(path = "/delete/{userId}")
 	public ResultDto<Boolean> delete(
-			@NotNull @Min(value = 1) @PathVariable(name = "userId",required = true) Integer userId){
+			@NotNull @Min(value = 1) @PathVariable(name = "userId",required = true) Long userId){
 		if (userService.removeById(userId)) {
 			return ResultDtoUtil.success(); 
 		}

@@ -30,5 +30,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 		return baseMapper.findUserInfo(page,wrapper);
 	}
 
+	@Override
+	public boolean updateUserPassWord(Long userId, String password) {
+		User user = new User();
+		user.setUserId(userId);
+		user.setPassword(password);
+		return baseMapper.updateById(user) > 0;
+	}
 
 }

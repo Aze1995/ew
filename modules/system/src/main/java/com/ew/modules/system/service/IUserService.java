@@ -13,7 +13,7 @@ import com.ew.modules.system.vo.UserVo;
 public interface IUserService extends IService<User> {
 
 	/**
-	 * 	查询用户信息
+	 *	查询用户信息
 	 * @param page		分页信息
 	 * @param userName	登入用户名
 	 * @param nickname	用户昵称
@@ -21,5 +21,13 @@ public interface IUserService extends IService<User> {
 	 * @return
 	 */
 	IPage<UserVo> findUserInfo(IPage<User> page,String userName,String nickname,String phone);
+	
+	/**
+	 *	更新用户密码
+	 * @param userId	用户标识
+	 * @param password	新密码
+	 * @return
+	 */
+	boolean updateUserPassWord(Long userId,String password);
 	
 }
