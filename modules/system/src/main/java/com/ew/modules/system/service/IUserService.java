@@ -29,6 +29,14 @@ public interface IUserService extends IBaseService<User> {
 	IPage<UserVo> findUserInfo(IPage<User> page,String userName,String nickname,String phone);
 	
 	/**
+	 * 验证密码
+	 * @param userId		用户标识
+	 * @param password		登入密码
+	 * @return
+	 */
+	boolean verifyPassword(Long userId,String password);
+	
+	/**
 	 *	更新用户密码
 	 * @param userId	用户标识
 	 * @param password	新密码

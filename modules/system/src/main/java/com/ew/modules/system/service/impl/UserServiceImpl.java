@@ -38,4 +38,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 		return baseMapper.updateById(user) > 0;
 	}
 
+	@Override
+	public boolean verifyPassword(Long userId, String password) {
+		LambdaQueryWrapper<User> queryWrapper = WrapperUtil.lambdaQuery(new User())
+				.eq(User::getUserId, userId)
+				.eq(User::getPassword, password);
+		return count(queryWrapper) >0;
+	}
+
 }

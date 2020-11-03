@@ -1,6 +1,7 @@
 package com.ew.admin.system.controller;
 
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.BeanUtils;
@@ -71,6 +72,26 @@ public class UserController implements UpdateMapping<IUserService, User, UserFor
 		IPage<User> page = new Page<User>(pageNumb, pagSize);
 		IPage<UserVo> userInfo = userService.findUserInfo(page, userName, nickname, phone);
 		return ResultDtoUtil.success(userInfo);
+	}
+	
+	@ApiOperation(value = "编辑用户密码")
+	@ApiImplicitParams({ 
+		@ApiImplicitParam(name = "userId", value = "用户标识", required = true, paramType = "path"), 
+		@ApiImplicitParam(name = "oldPassword", value = "源密码", required = true, paramType = "query"), 
+		@ApiImplicitParam(name = "newPassowrd", value = "新密码", required = true, paramType = "query"), 
+		})
+	@PostMapping(path = "/editPassWord/{userId}")
+	public ResultDto<Boolean> editPassWord(@NotNull @Min(value = 1) @PathVariable(name = "userId", required = true) Long userId,
+			@NotBlank String oldPassword,//原密码
+			@NotBlank String newPassowrd){//新密码
+		
+		if (!userService.verifyPassword(userId, oldPassword)) {
+			return RequestError.business("源密码不正确");	
+		}
+		if (userService.updateUserPassWord(userId, newPassowrd)) {
+			return ResultDtoUtil.success();
+		}
+		return RequestError.business("源密码验证通过,更新失败");
 	}
 
 	@ApiOperation(value = "重置用户密码")
