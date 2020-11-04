@@ -18,6 +18,9 @@ public enum ResultEnum {
     REQUEST_ERROR_PARAMETER(101,"请求参数不合法"),
 	REQUEST_ERROR_BUSINESS (102,"请求成功执行业务失败"),
 	
+	REQUEST_ERROR_BAD_REQUEST (401,"请求要求身份验证"),
+	
+	
 	SYSTEM_ERROR_UNDEFINED (801,"内部系统异常"),
     ;
 

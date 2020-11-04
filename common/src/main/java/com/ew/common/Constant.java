@@ -7,6 +7,8 @@ package com.ew.common;
  */
 public class Constant {
 	
+	public static final String CHARSET_UTF8 = "UTF-8";
+	
 	/**默认配置常量*/
 	public class DefaultConst{
 		/** 用户初始化密码 */

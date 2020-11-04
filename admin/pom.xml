@@ -43,6 +43,10 @@
 			<groupId>com.ew</groupId>
 			<artifactId>Light-Year-Admin-Ui</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>com.ew</groupId>
+			<artifactId>shiro</artifactId>
+		</dependency>
 
 	</dependencies>
 
