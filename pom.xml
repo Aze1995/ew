@@ -22,6 +22,7 @@
 		<oshi.version>5.2.5</oshi.version>
 		<myatbis.plus.version>3.2.0</myatbis.plus.version>
 		<swagger.ui.version>2.9.2</swagger.ui.version>
+		<commons.io.version>2.5</commons.io.version>
 		<swagger-bootstrap-ui.version>1.9.6</swagger-bootstrap-ui.version>
 		<mybatis-plus-generator.version>3.4.0</mybatis-plus-generator.version>
 		<velocity-engine-core.version>2.2</velocity-engine-core.version>
@@ -43,12 +44,6 @@
 				<groupId>com.alibaba</groupId>
 				<artifactId>druid-spring-boot-starter</artifactId>
 				<version>${druid.version}</version>
-			</dependency>
-			<!--Shiro核心框架 -->
-			<dependency>
-				<groupId>org.apache.shiro</groupId>
-				<artifactId>shiro-core</artifactId>
-				<version>${shiro.version}</version>
 			</dependency>
 			<!-- Shiro使用Srping框架 -->
 			<dependency>
@@ -126,20 +121,33 @@
 				<artifactId>swagger-bootstrap-ui</artifactId>
 				<version>${swagger-bootstrap-ui.version}</version>
 			</dependency>
+			<!--io常用工具类 -->
+			<dependency>
+				<groupId>commons-io</groupId>
+				<artifactId>commons-io</artifactId>
+				<version>${commons.io.version}</version>
+			</dependency>
 
 
+			<!-- 公共模块 -->
 			<dependency>
 				<groupId>com.ew</groupId>
 				<artifactId>common</artifactId>
 				<version>${ew.version}</version>
 			</dependency>
-
+			<!-- Shiro权限 -->
+			<dependency>
+				<groupId>com.ew</groupId>
+				<artifactId>shiro</artifactId>
+				<version>${ew.version}</version>
+			</dependency>
+			<!-- 业务-系统模块 -->
 			<dependency>
 				<groupId>com.ew</groupId>
 				<artifactId>system</artifactId>
 				<version>${ew.version}</version>
 			</dependency>
-			<!-- 光年后台模板UI -->
+			<!-- 前端-光年后台模板UI -->
 			<dependency>
 				<groupId>com.ew</groupId>
 				<artifactId>Light-Year-Admin-Ui</artifactId>
