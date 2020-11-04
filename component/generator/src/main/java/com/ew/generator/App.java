@@ -91,6 +91,7 @@ public class App {
 		strategyConfig.setEntityLombokModel(true);//实体为lombok模式
 		
 		strategyConfig.setSuperEntityClass("com.ew.common.base.BaseEntity");//实体类父类
+		strategyConfig.setSuperControllerClass("com.ew.common.base.BaseAbstractController");
 		strategyConfig.setSuperEntityColumns("remark","status","update_by","update_date","create_by","create_date");//父类公共字段
 		
 		strategyConfig.setSuperServiceClass("com.ew.common.base.IBaseService");
@@ -103,6 +104,7 @@ public class App {
 		TemplateConfig templateConfig =new TemplateConfig();
 		//https://gitee.com/baomidou/mybatis-plus/tree/3.0/mybatis-plus-generator/src/main/resources/templates
 		templateConfig.setService("/templates/EwService.java.vm");
+		templateConfig.setController("/templates/EwController.java.vm");
 		return templateConfig;
 	}
 
