@@ -91,7 +91,7 @@ public class App {
 		strategyConfig.setEntityLombokModel(true);//实体为lombok模式
 		
 		strategyConfig.setSuperEntityClass("com.ew.common.base.BaseEntity");//实体类父类
-		strategyConfig.setSuperControllerClass("com.ew.common.base.BaseAbstractController");
+//		strategyConfig.setSuperControllerClass("com.ew.common.base.BaseAbstractController");
 		strategyConfig.setSuperEntityColumns("remark","status","update_by","update_date","create_by","create_date");//父类公共字段
 		
 		strategyConfig.setSuperServiceClass("com.ew.common.base.IBaseService");
