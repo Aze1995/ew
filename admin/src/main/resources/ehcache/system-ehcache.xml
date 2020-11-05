@@ -17,8 +17,8 @@
         <persistence strategy="localTempSwap"/>
     </defaultCache>
 
-    <!-- 字典元素缓存 -->
-    <cache name="dictionary"
+    <!-- 菜单元素缓存 -->
+    <cache name="system-menu"
            maxElementsInMemory="10000"
            eternal="true"
            overflowToDisk="true"

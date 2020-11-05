@@ -1,5 +1,7 @@
 package com.ew.admin.system.controller;
 
+import java.util.List;
+
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
@@ -22,6 +24,7 @@ import com.ew.common.utils.ResultDtoUtil;
 import com.ew.common.utils.ResultDtoUtil.RequestError;
 import com.ew.modules.system.entity.Menu;
 import com.ew.modules.system.service.IMenuService;
+import com.ew.modules.system.vo.MenuVo;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -46,17 +49,9 @@ public class MenuController {
 	private IMenuService service;
 	
 	@ApiOperation(value = "菜单列表")
-	@ApiImplicitParams({
-		@ApiImplicitParam(name = "pageNumb",defaultValue = "1",value = "查询页码",required = false,paramType = "query"),
-		@ApiImplicitParam(name = "pagSize",defaultValue = "10",value = "每页条数",required = false,paramType = "query"),
-	})
 	@GetMapping(path = "list")
-	public ResultDto<IPage<Menu>> list(
-				@RequestParam(name = "pageNumb",required = false,defaultValue = "1") Integer pageNumb,
-				@RequestParam(name = "pagSize",required = false,defaultValue = "10") Integer pagSize
-			){
-		IPage<Menu> page = service.page(new Page<Menu>(pageNumb, pagSize));
-		return ResultDtoUtil.success(page);
+	public ResultDto<List<MenuVo>> list(){
+		return ResultDtoUtil.success(service.findAll());
 	}
 
 	@ApiOperation(value = "菜单详情")

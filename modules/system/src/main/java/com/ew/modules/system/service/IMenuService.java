@@ -2,17 +2,17 @@ package com.ew.modules.system.service;
 
 import java.util.List;
 
-import com.ew.common.base.IBaseService;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
+
+import com.ew.common.Constant.CacheName;
 import com.ew.modules.system.entity.Menu;
 import com.ew.modules.system.vo.MenuVo;
 
-public interface IMenuService extends IBaseService<Menu>{
+public interface IMenuService {
 
-	@Override
-	default boolean updateById(Menu entity, Long id) {
-		entity.setMenuId(id);
-		return updateById(entity);
-	}
 	
 	/**
 	 * 查询所有菜单
@@ -25,5 +25,37 @@ public interface IMenuService extends IBaseService<Menu>{
 	 * @param pid	父级菜单标识
 	 * @return
 	 */
-	List<MenuVo> findByPid(Long pid);
+	List<MenuVo> findMenuByPid(Long pid);
+
+	/**
+	 * 查询菜单详情
+	 * @param id
+	 * @return
+	 */
+	Menu getById(Long id);
+	
+	/**
+	 * 保存菜单信息
+	 * @param menu
+	 * @return
+	 */
+	boolean save(Menu menu);
+	
+	/**
+	 * 更新菜单信息
+	 * @param menu
+	 * @param id
+	 * @return
+	 */
+	boolean updateById(Menu menu, Long id);
+
+	/**
+	 * 删除菜单信息
+	 * @param id
+	 * @return
+	 */
+	boolean removeById(Long id);
+
+	
+	
 }

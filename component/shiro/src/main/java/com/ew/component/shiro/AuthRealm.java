@@ -50,15 +50,12 @@ public class AuthRealm extends AuthorizingRealm {
 		User user = userService.queryUserInfoBy(token.getUsername());
 	      // 判断用户名是否存在
         if (user == null) {
-        	log.info("用户名有误");
             throw new UnknownAccountException();//用户不存在-用户名密码错误
         }
         String loginPassword = new String(token.getPassword());
         if (!user.getPassword().equals(loginPassword)) {
-        	log.info("密码错误");
         	throw new UnknownAccountException();//密码不正确-用户名密码错误
 		}
-        log.info("登入成功");
         ByteSource salt = ByteSource.Util.bytes("");
 		return new SimpleAuthenticationInfo(user, user.getPassword(), salt, getName());
 	}

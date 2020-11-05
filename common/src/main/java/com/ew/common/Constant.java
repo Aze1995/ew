@@ -26,4 +26,10 @@ public class Constant {
 	    public static final int DELETE = 2;
 	}
 	
+	/** 缓存名称 */
+	public class CacheName{
+		/**系统菜单缓存*/
+		public static final String MENU = "system-menu";
+	}
+	
 }

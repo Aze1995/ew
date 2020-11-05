@@ -4,6 +4,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,7 @@ public class UserController {
 	private IUserService userService;
 
 	@ApiOperation(value = "添加")
+	@RequiresPermissions(value = { "system:user:add" })
 	@PostMapping("add")
 	public ResultDto<Boolean> add(@RequestBody @Validated UserForm form) {
 		User entity = new User();
@@ -60,9 +62,9 @@ public class UserController {
 			@ApiImplicitParam(name = "userName", value = "登入名", required = false, paramType = "query"),
 			@ApiImplicitParam(name = "nickname", value = "用户昵称", required = false, paramType = "query"),
 			@ApiImplicitParam(name = "phone", value = "手机号", required = false, paramType = "query"), })
-	@GetMapping(path = "listVo")
-	@RequiresPermissions(value = { "user:delete:a" })
-	public ResultDto<IPage<UserVo>> listVo(
+	@RequiresPermissions(value = { "system:user:view" })
+	@GetMapping(path = "list")
+	public ResultDto<IPage<UserVo>> list(
 			@RequestParam(name = "pageNumb", required = false, defaultValue = "1") Integer pageNumb,
 			@RequestParam(name = "pagSize", required = false, defaultValue = "10") Integer pagSize, String userName,
 			String nickname, String phone) {
@@ -72,7 +74,10 @@ public class UserController {
 	}
 
 	@ApiOperation(value = "编辑系统-用户")
-	@ApiImplicitParams({ @ApiImplicitParam(name = "Id", value = "标识", required = true, paramType = "path"), })
+	@ApiImplicitParams({
+		@ApiImplicitParam(name = "Id", value = "标识", required = true, paramType = "path"), 
+	})
+	@RequiresPermissions(value = { "system:user:edit" })
 	@PostMapping(path = "/edit/{Id}")
 	public ResultDto<Boolean> edit(@RequestBody @Validated UserForm form,
 			@NotNull @Min(value = 1) @PathVariable(name = "Id", required = true) Long Id) {
@@ -84,10 +89,11 @@ public class UserController {
 		return RequestError.business("更新失败");
 	}
 
-	@ApiOperation(value = "编辑用户密码")
+	@ApiOperation(value = "登入更新密码")
 	@ApiImplicitParams({ @ApiImplicitParam(name = "userId", value = "用户标识", required = true, paramType = "path"),
 			@ApiImplicitParam(name = "oldPassword", value = "源密码", required = true, paramType = "query"),
 			@ApiImplicitParam(name = "newPassowrd", value = "新密码", required = true, paramType = "query"), })
+	@RequiresAuthentication//登入成功就有权限
 	@PostMapping(path = "/editPassWord/{userId}")
 	public ResultDto<Boolean> editPassWord(
 			@NotNull @Min(value = 1) @PathVariable(name = "userId", required = true) Long userId,
@@ -105,6 +111,7 @@ public class UserController {
 
 	@ApiOperation(value = "重置用户密码")
 	@ApiImplicitParams({ @ApiImplicitParam(name = "userId", value = "用户标识", required = true, paramType = "path"), })
+	@RequiresPermissions(value = { "system:user:edit" })
 	@PostMapping(path = "/resetPassWord/{userId}")
 	public ResultDto<Boolean> resetPassWord(
 			@NotNull @Min(value = 1) @PathVariable(name = "userId", required = true) Long userId) {
@@ -116,6 +123,7 @@ public class UserController {
 
 	@ApiOperation(value = "删除用户", notes = "")
 	@ApiImplicitParams({ @ApiImplicitParam(name = "Id", value = "标识", required = true, paramType = "path"), })
+	@RequiresPermissions(value = { "system:user:del" })
 	@PostMapping(path = "/delete/{Id}")
 	public ResultDto<Boolean> delete(@NotNull @Min(value = 1) @PathVariable(name = "Id", required = true) Long Id) {
 		if (userService.removeById(Id)) {
@@ -126,6 +134,7 @@ public class UserController {
 
 	@ApiOperation(value = "用户详情")
 	@ApiImplicitParams({ @ApiImplicitParam(name = "Id", value = "标识", required = true, paramType = "path"), })
+	@RequiresPermissions(value = { "system:user:view" })
 	@GetMapping(path = "/query/{Id}")
 	public ResultDto<User> query(@NotNull @Min(value = 1) @PathVariable(name = "Id", required = true) Long Id) {
 		User data = userService.getById(Id);

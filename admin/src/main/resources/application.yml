@@ -1,5 +1,5 @@
 server:  port: 8081project:  shiro:    excludes:    - /doc.html    - /webjars/**    - /swagger-resources/**    - /v2/api-docs    - /system/login  cors-allowed-origin: '*'  swagger-enabled: true  druid:    user-name: ew   password: 123456      
-spring:  jackson:    date-format: yyyy-MM-dd HH:mm:ss    time-zone: GMT+8    serialization:      write-dates-as-timestamps: false
+spring:  cache:    ehcache:      config: classpath:ehcache/system-ehcache.xml  jackson:    date-format: yyyy-MM-dd HH:mm:ss    time-zone: GMT+8    serialization:      write-dates-as-timestamps: false
   datasource:
     url: jdbc:mysql://127.0.0.1:3306/ew?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
     username: root

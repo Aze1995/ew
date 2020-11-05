@@ -28,7 +28,6 @@ public class UserAuthFilter extends AccessControlFilter {
 	 */
     @Override
     protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue) {
-    	System.err.println("UserAuthFilter.isAccessAllowed.mappedValue = "+mappedValue);
         if (isLoginRequest(request, response)) {
             return true;
         } else {
