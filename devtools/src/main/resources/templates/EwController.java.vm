@@ -1,4 +1,4 @@
-//package ${package.Controller};
+package ${ControllerPackageName}.${package.ModuleName}.controller;
 
 
 import javax.validation.constraints.Min;

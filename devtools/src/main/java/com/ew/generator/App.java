@@ -1,5 +1,7 @@
 package com.ew.generator;
 
+import java.util.Map;
+
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
@@ -7,7 +9,10 @@ import com.baomidou.mybatisplus.generator.config.GlobalConfig;
 import com.baomidou.mybatisplus.generator.config.PackageConfig;
 import com.baomidou.mybatisplus.generator.config.StrategyConfig;
 import com.baomidou.mybatisplus.generator.config.TemplateConfig;
+import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
+import com.baomidou.mybatisplus.generator.engine.AbstractTemplateEngine;
+import com.baomidou.mybatisplus.generator.engine.VelocityTemplateEngine;
 
 /**
  * 代码生成入口
@@ -16,9 +21,10 @@ import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
  */
 public class App {
 	
+	static AutoGenerator autoGenerator =new AutoGenerator();
 
 	public static void main(String[] args) {
-		AutoGenerator autoGenerator =new AutoGenerator();
+		
 		autoGenerator.setDataSource(getDataSourceConfig());//数据源配置
 		autoGenerator.setGlobalConfig(getGlobalConfig());//全局配置
 		autoGenerator.setPackageInfo(getPackageConfig());//包名配置
@@ -105,6 +111,15 @@ public class App {
 		//https://gitee.com/baomidou/mybatis-plus/tree/3.0/mybatis-plus-generator/src/main/resources/templates
 		templateConfig.setService("/templates/EwService.java.vm");
 		templateConfig.setController("/templates/EwController.java.vm");
+		VelocityTemplateEngine templateEngine = new VelocityTemplateEngine() {
+			@Override
+			public Map<String, Object> getObjectMap(TableInfo tableInfo) {
+				Map<String, Object> objectMap = super.getObjectMap(tableInfo);
+				objectMap.put("ControllerPackageName", "com.ew.admin");//自定义添加Controller报名
+				return objectMap;
+			}
+		};
+		autoGenerator.setTemplateEngine(templateEngine);//自定义模板引擎
 		return templateConfig;
 	}
 
