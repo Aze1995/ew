@@ -47,6 +47,10 @@
 			<groupId>com.ew</groupId>
 			<artifactId>shiro</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>com.ew</groupId>
+			<artifactId>actionLog</artifactId>
+		</dependency>
 
 	</dependencies>
 

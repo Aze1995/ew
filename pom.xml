@@ -135,10 +135,16 @@
 				<artifactId>common</artifactId>
 				<version>${ew.version}</version>
 			</dependency>
-			<!-- Shiro权限 -->
+			<!-- 组件:Shiro权限 -->
 			<dependency>
 				<groupId>com.ew</groupId>
 				<artifactId>shiro</artifactId>
+				<version>${ew.version}</version>
+			</dependency>
+			<!-- 组件:业务日志 -->
+			<dependency>
+				<groupId>com.ew</groupId>
+				<artifactId>actionLog</artifactId>
 				<version>${ew.version}</version>
 			</dependency>
 			<!-- 业务-系统模块 -->

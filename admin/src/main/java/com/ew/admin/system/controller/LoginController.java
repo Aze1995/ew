@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ew.common.dto.ResultDto;
 import com.ew.common.utils.ResultDtoUtil;
+import com.ew.component.actionLog.annotation.ActionLog;
 import com.ew.modules.system.entity.User;
 
 import io.swagger.annotations.Api;
@@ -32,6 +33,7 @@ public class LoginController {
 		@ApiImplicitParam(name = "username",value = "用户名",required = false,paramType = "query"),
 		@ApiImplicitParam(name = "password",value = "用户密码",required = false,paramType = "query"),
 	})
+	@ActionLog(name = "登入",message = "用户登入接口")
 	@PostMapping("login")
 	public ResultDto<User> login( @NotBlank @RequestParam(name = "username") String username,
 			@NotBlank @RequestParam(name = "password") String password){

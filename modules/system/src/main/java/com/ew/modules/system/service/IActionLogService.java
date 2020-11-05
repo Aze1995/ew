@@ -16,4 +16,10 @@ public interface IActionLogService extends IBaseService<ActionLog> {
 		return updateById(entity);
 	}
 	
+	/**
+	 * 异步插入信息
+	 * @param log
+	 */
+	void saveAsync(ActionLog log);
+	
 }
