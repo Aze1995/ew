@@ -87,11 +87,11 @@ public class App {
 		strategyConfig.setEntityTableFieldAnnotationEnable(true);//是否生成实体时，生成字段注解
 		strategyConfig.setNaming(NamingStrategy.underline_to_camel);//表名开启驼峰
 		strategyConfig.setColumnNaming(NamingStrategy.underline_to_camel);//字段名开启驼峰
-		strategyConfig.setInclude("sys_menu");//生成代码表名 支持正则
+		strategyConfig.setInclude("sys_user");//生成代码表名 支持正则
 		strategyConfig.setEntityLombokModel(true);//实体为lombok模式
 		
 		strategyConfig.setSuperEntityClass("com.ew.common.base.BaseEntity");//实体类父类
-		strategyConfig.setSuperControllerClass("com.ew.common.base.BaseAbstractController");
+//		strategyConfig.setSuperControllerClass("com.ew.common.base.BaseAbstractController");
 		strategyConfig.setSuperEntityColumns("remark","status","update_by","update_date","create_by","create_date");//父类公共字段
 		
 		strategyConfig.setSuperServiceClass("com.ew.common.base.IBaseService");
