@@ -12,8 +12,10 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import com.ew.common.dto.ResultDto;
+import com.ew.common.utils.HttpServletUtil;
 import com.ew.common.utils.ResultDtoUtil;
 
 import lombok.extern.slf4j.Slf4j;
@@ -47,6 +49,13 @@ public class GlobalExceptionHandler {
 	public ResultDto<String> hadeConstraintViolationException(ConstraintViolationException exception) {
 		ConstraintViolation<?> next = exception.getConstraintViolations().iterator().next();
 		return ResultDtoUtil.RequestError.parameter(next.getPropertyPath()+"-"+next.getMessage()); 
+	}
+	
+	/** 请求方法参数类型转换异常*/
+	@ExceptionHandler(value = MethodArgumentTypeMismatchException.class)
+	public ResultDto<String> hadeMethodArgumentTypeMismatchException(MethodArgumentTypeMismatchException e, HttpServletRequest req) {
+		log.error("请求方法参数类型转换异 - 请求接口[{}]  ",req.getRequestURL().toString(), e);
+		return ResultDtoUtil.RequestError.parameter("参数类型错误"); 
 	}
 	
 	/** 其他错误 */

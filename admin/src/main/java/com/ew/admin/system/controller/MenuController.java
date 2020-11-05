@@ -13,11 +13,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.ew.admin.system.form.MenuForm;
 import com.ew.common.dto.ResultDto;
 import com.ew.common.utils.ResultDtoUtil;
@@ -83,7 +80,7 @@ public class MenuController {
 		@ApiImplicitParam(name = "Id",value = "标识",required = true,paramType = "path"),
 	})
 	@PostMapping(path = "/edit/{Id}")
-	public ResultDto<Boolean> edit(@RequestBody @Validated Menu form,
+	public ResultDto<Boolean> edit(@RequestBody @Validated MenuForm form,
 			@NotNull @Min(value = 1) @PathVariable(name = "Id",required = true) Long Id) {
 		Menu entity = new Menu();
 		BeanUtils.copyProperties(form,entity);

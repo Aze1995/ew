@@ -68,8 +68,7 @@ public class UserController {
 			@RequestParam(name = "pageNumb", required = false, defaultValue = "1") Integer pageNumb,
 			@RequestParam(name = "pagSize", required = false, defaultValue = "10") Integer pagSize, String userName,
 			String nickname, String phone) {
-		IPage<User> page = new Page<User>(pageNumb, pagSize);
-		IPage<UserVo> userInfo = userService.findUserInfo(page, userName, nickname, phone);
+		IPage<UserVo> userInfo = userService.findUserInfo(new Page<User>(pageNumb, pagSize), userName, nickname, phone);
 		return ResultDtoUtil.success(userInfo);
 	}
 
@@ -141,7 +140,7 @@ public class UserController {
 		if (data != null) {
 			return ResultDtoUtil.success(data);
 		}
-		return RequestError.business();
+		return RequestError.business("未找到用户");
 	}
 
 }

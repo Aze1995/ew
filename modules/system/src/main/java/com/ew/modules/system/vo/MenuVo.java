@@ -32,7 +32,7 @@ public class MenuVo implements Serializable {
 	private String icon;
 	
 	@ApiModelProperty(notes = "类型（1:一级菜单,2:子级菜单,3:不/**是菜单")
-	private String type;
+	private Integer type;
 	
 	@ApiModelProperty(notes = "子级菜单")
 	private List<MenuVo> menu;

@@ -16,4 +16,11 @@ public interface IRoleService extends IBaseService<Role>{
 		return updateById(entity);
 	}
 	
+	/**
+	 * 角色id是否正确
+	 * @param roleId
+	 * @return
+	 */
+	boolean verifyRoleId(Long roleId);
+	
 }

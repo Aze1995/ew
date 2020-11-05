@@ -98,7 +98,7 @@ public class DeptController {
 		return RequestError.business("更新失败");
 	}	
 
-	@ApiOperation(value = "删除部门",notes = "")
+	@ApiOperation(value = "删除部门",notes = "删除父级部门会级联删除所有关联子级部门")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = "Id",value = "标识",required = true,paramType = "path"),
 	})
