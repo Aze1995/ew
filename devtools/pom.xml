@@ -4,14 +4,12 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>com.ew</groupId>
-		<artifactId>component</artifactId>
+		<artifactId>ew</artifactId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
-	<artifactId>generator</artifactId>
-	<name>组件:代码生成</name>
-	<description>基于MyBatis Plus实现代码生成</description>
-	<properties>
-	</properties>
+	<artifactId>devtools</artifactId>
+	<name>代码生成工具</name>
+	<description>EW代码生成工具</description>
 
 	<dependencies>
 		<dependency>

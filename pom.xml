@@ -161,6 +161,7 @@
 		<module>component</module>
 		<module>modules</module>
 		<module>admin</module>
+		<module>devtools</module>
 	</modules>
 	<build>
 		<plugins>
