@@ -1,5 +1,7 @@
 package com.ew.component.shiro;
 
+import java.util.List;
+
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -13,31 +15,36 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.ew.modules.system.entity.Menu;
 import com.ew.modules.system.entity.User;
+import com.ew.modules.system.service.IRoleMenuService;
 import com.ew.modules.system.service.IUserService;
-
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * 系统用户身份验证 Realm
  * @author Mr`Huang
  * @Date 2020-11-4 13:52:15
  */
-@Slf4j
 public class AuthRealm extends AuthorizingRealm {
 
 	@Autowired
 	private IUserService userService;
+	@Autowired
+	private IRoleMenuService roleMenuService; 
 	
 	/**
 	 * 授权逻辑
 	 */
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-		System.err.println("doGetAuthorizationInfo"+principals);
+		User user = principals.oneByType(User.class);
+		Long roleId = user.getRoleId();
+		List<Menu> menus = roleMenuService.findMenuByRoleId(roleId);
 		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
-	    info.addRole("admin");
-        info.addStringPermission("a:f:s");
+	    info.addRole(String.valueOf(user.getRoleId()));//角色名称-角色Id
+	    menus.forEach(m->{
+	    	info.addStringPermission(m.getPerms());//设置登入用户角色权限	    	
+	    });
         return info;
 	}
 

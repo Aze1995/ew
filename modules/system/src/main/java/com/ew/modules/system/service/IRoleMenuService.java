@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.List;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.ew.modules.system.entity.Menu;
 import com.ew.modules.system.entity.RoleMenu;
 
 public interface IRoleMenuService extends IService<RoleMenu> {
@@ -22,4 +23,11 @@ public interface IRoleMenuService extends IService<RoleMenu> {
 	 * @return
 	 */
 	List<Long> findMenuIdByRoleId(Long roleId);
+	
+	/**
+	 * 查询菜单信息
+	 * @param roleId	角色标识
+	 * @return
+	 */
+	List<Menu> findMenuByRoleId(Long roleId);
 }
