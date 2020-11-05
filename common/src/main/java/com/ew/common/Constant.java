@@ -15,6 +15,8 @@ public class Constant {
 		public static final String USER_PASSWORD = "123456";
 		/** 菜单，部门 父级 PID */
 		public static final long TOP_LEVE_PID = 0L;
+		/**系统管理员用户名*/
+		public static final String SYSTEM_ADMIN_NAME = "ew";
 	}
 	
 
