@@ -5,6 +5,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -21,9 +23,10 @@ import lombok.extern.slf4j.Slf4j;
  * @author Mr`Huang
  * @Date 2020-11-2 17:48:13
  */
-@RestControllerAdvice
 @Slf4j
-public class ApiExceptionHandler {
+@Order(Ordered.LOWEST_PRECEDENCE)
+@RestControllerAdvice
+public class GlobalExceptionHandler {
 
 	/** 表单参数Form提交时, valid校验不通过时通用拦截 */
 	@ExceptionHandler(value = BindException.class)

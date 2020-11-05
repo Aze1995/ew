@@ -4,6 +4,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -65,6 +66,7 @@ public class UserController implements UpdateMapping<IUserService, User, UserFor
 			@ApiImplicitParam(name = "nickname", value = "用户昵称", required = false, paramType = "query"),
 			@ApiImplicitParam(name = "phone", value = "手机号", required = false, paramType = "query"), })
 	@GetMapping(path = "listVo")
+	@RequiresPermissions(value = {"user:delete:a"})
 	public ResultDto<IPage<UserVo>> listVo(
 			@RequestParam(name = "pageNumb", required = false, defaultValue = "1") Integer pageNumb,
 			@RequestParam(name = "pagSize", required = false, defaultValue = "10") Integer pagSize, String userName,

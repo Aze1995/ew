@@ -52,6 +52,7 @@ public class ResultDtoUtil {
 			return new ResultDto<T>(ResultEnum.REQUEST_ERROR_BUSINESS,null);
 		}
 		
+		
 		/**
 		 * 请求成功执行业务失败
 		 * @param <T>
@@ -60,6 +61,21 @@ public class ResultDtoUtil {
 		 */
 		public static <T> ResultDto<T> business(String message){
 			return setDtoMessage(business(), message);
+		}
+		
+		/**请求权限不足*/
+		public static <T> ResultDto<T> badRequest(){
+			return new ResultDto<T>(ResultEnum.REQUEST_ERROR_BAD_REQUEST,null);
+		}
+		
+		/**
+		 * 请求权限不足
+		 * @param <T>
+		 * @param message
+		 * @return
+		 */
+		public static <T> ResultDto<T> badRequest(String message){
+			return setDtoMessage(badRequest(),message);
 		}
 		
 	}

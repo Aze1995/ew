@@ -34,10 +34,10 @@ public class AuthRealm extends AuthorizingRealm {
 	 */
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-		log.info("doGetAuthorizationInfo-{}",principals);
+		System.err.println("doGetAuthorizationInfo"+principals);
 		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
 	    info.addRole("admin");
-        info.addStringPermission("*:*:*");
+        info.addStringPermission("a:f:s");
         return info;
 	}
 
