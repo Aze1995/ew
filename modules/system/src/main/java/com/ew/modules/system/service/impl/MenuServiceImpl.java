@@ -29,7 +29,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
 			List<MenuVo> second = findMenuByPid(menuVo.getMenuId());// 查询二级菜单
 			menuVo.setMenu(second);
 			second.forEach(menu -> {
-				List<MenuVo> thirdly = findMenuByPid(menuVo.getMenuId());// 查询三级-菜单权限
+				List<MenuVo> thirdly = findMenuByPid(menu.getMenuId());// 查询三级-菜单权限
 				menu.setMenu(thirdly);
 			});
 		}
