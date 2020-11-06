@@ -41,7 +41,7 @@ public class AuthRealm extends AuthorizingRealm {
 		User user = principals.oneByType(User.class);
 		Long roleId = user.getRoleId();
 		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
-		if (DefaultConst.SYSTEM_ADMIN_NAME.equals(user.getUsername())) {
+		if (ShiroUtil.isAdmin()) {
 			info.addRole("admin");
 	        info.addStringPermission("*:*:*");//管理员用户-开放所有权限
 	        return info;

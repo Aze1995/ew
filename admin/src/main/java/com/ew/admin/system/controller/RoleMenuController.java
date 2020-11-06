@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ew.common.dto.ResultDto;
+import com.ew.common.enums.ActionLogEnum;
 import com.ew.common.utils.ResultDtoUtil;
+import com.ew.component.actionLog.annotation.ActionLog;
 import com.ew.modules.system.service.IRoleMenuService;
 import com.ew.modules.system.service.IRoleService;
 
@@ -57,6 +59,7 @@ public class RoleMenuController {
 		@ApiImplicitParam(name = "Id", value = "角色标识", required = true, paramType = "path"), 
 		@ApiImplicitParam(name = "menuIds", value = "菜单标识集", required = true, paramType = "body"), 
 	})
+	@ActionLog(name = "编辑角色权限",type = ActionLogEnum.SYSTEM)
 	@RequiresPermissions(value = {"system:roleMenu:edit"})
 	@PostMapping(path = "/edit/{Id}")
 	public ResultDto<Boolean> edit(@NotNull @Min(value = 1) @PathVariable(name = "Id", required = true) Long roleId,

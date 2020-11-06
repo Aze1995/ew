@@ -22,8 +22,12 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.ew.admin.system.form.UserForm;
 import com.ew.common.Constant.DefaultConst;
 import com.ew.common.dto.ResultDto;
+import com.ew.common.enums.ActionLogEnum;
 import com.ew.common.utils.ResultDtoUtil;
 import com.ew.common.utils.ResultDtoUtil.RequestError;
+import com.ew.component.actionLog.action.UserActionSign;
+import com.ew.component.actionLog.annotation.ActionLog;
+import com.ew.component.shiro.ShiroUtil;
 import com.ew.modules.system.entity.User;
 import com.ew.modules.system.service.IUserService;
 import com.ew.modules.system.vo.UserVo;
@@ -42,8 +46,9 @@ public class UserController {
 	@Autowired
 	private IUserService userService;
 
-	@ApiOperation(value = "添加")
+	@ApiOperation(value = "添加用户")
 	@RequiresPermissions(value = { "system:user:add" })
+	@ActionLog(name = "添加用户",type = ActionLogEnum.SYSTEM)
 	@PostMapping("add")
 	public ResultDto<Boolean> add(@RequestBody @Validated UserForm form) {
 		User entity = new User();
@@ -72,10 +77,11 @@ public class UserController {
 		return ResultDtoUtil.success(userInfo);
 	}
 
-	@ApiOperation(value = "编辑系统-用户")
+	@ApiOperation(value = "更新用户信息")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = "Id", value = "标识", required = true, paramType = "path"), 
 	})
+	@ActionLog(name = "更新用户信息",type = ActionLogEnum.SYSTEM)
 	@RequiresPermissions(value = { "system:user:edit" })
 	@PostMapping(path = "/edit/{Id}")
 	public ResultDto<Boolean> edit(@RequestBody @Validated UserForm form,
@@ -88,17 +94,16 @@ public class UserController {
 		return RequestError.business("更新失败");
 	}
 
-	@ApiOperation(value = "登入更新密码")
-	@ApiImplicitParams({ @ApiImplicitParam(name = "userId", value = "用户标识", required = true, paramType = "path"),
+	@ApiOperation(value = "更新登入密码")
+	@ApiImplicitParams({ 
 			@ApiImplicitParam(name = "oldPassword", value = "源密码", required = true, paramType = "query"),
 			@ApiImplicitParam(name = "newPassowrd", value = "新密码", required = true, paramType = "query"), })
 	@RequiresAuthentication//登入成功就有权限
-	@PostMapping(path = "/editPassWord/{userId}")
-	public ResultDto<Boolean> editPassWord(
-			@NotNull @Min(value = 1) @PathVariable(name = "userId", required = true) Long userId,
-			@NotBlank String oldPassword, // 原密码
-			@NotBlank String newPassowrd) {// 新密码
-
+	@ActionLog(name = "更新登入密码",type = ActionLogEnum.SYSTEM)
+	@PostMapping(path = "/editPassWord")
+	public ResultDto<Boolean> editPassWord( @NotBlank String oldPassword, // 原密码
+											@NotBlank String newPassowrd) {// 新密码
+		Long userId = ShiroUtil.getLoginUser().getUserId();
 		if (!userService.verifyPassword(userId, oldPassword)) {
 			return RequestError.business("源密码不正确");
 		}
@@ -109,11 +114,16 @@ public class UserController {
 	}
 
 	@ApiOperation(value = "重置用户密码")
-	@ApiImplicitParams({ @ApiImplicitParam(name = "userId", value = "用户标识", required = true, paramType = "path"), })
+	@ApiImplicitParams({ 
+		@ApiImplicitParam(name = "userId", value = "用户标识", required = true, paramType = "path"), })
 	@RequiresPermissions(value = { "system:user:edit" })
+	@ActionLog(name = "重置用户密码",type = ActionLogEnum.SYSTEM,key = UserActionSign.RESET_PASSWORD,action = UserActionSign.class)
 	@PostMapping(path = "/resetPassWord/{userId}")
 	public ResultDto<Boolean> resetPassWord(
 			@NotNull @Min(value = 1) @PathVariable(name = "userId", required = true) Long userId) {
+		if (userId.equals(ShiroUtil.getLoginUser().getUserId())) {
+			return RequestError.business("无法重置当前登入用户");
+		}
 		if (userService.updateUserPassWord(userId, DefaultConst.USER_PASSWORD)) {
 			return ResultDtoUtil.success();
 		}
@@ -123,6 +133,7 @@ public class UserController {
 	@ApiOperation(value = "删除用户", notes = "")
 	@ApiImplicitParams({ @ApiImplicitParam(name = "Id", value = "标识", required = true, paramType = "path"), })
 	@RequiresPermissions(value = { "system:user:del" })
+	@ActionLog(name = "重置用户密码",type = ActionLogEnum.SYSTEM,key = UserActionSign.USER_DELETE,action = UserActionSign.class)
 	@PostMapping(path = "/delete/{Id}")
 	public ResultDto<Boolean> delete(@NotNull @Min(value = 1) @PathVariable(name = "Id", required = true) Long Id) {
 		if (userService.removeById(Id)) {

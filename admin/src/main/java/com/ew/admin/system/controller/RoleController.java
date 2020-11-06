@@ -17,8 +17,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.ew.common.dto.ResultDto;
+import com.ew.common.enums.ActionLogEnum;
 import com.ew.common.utils.ResultDtoUtil;
 import com.ew.common.utils.ResultDtoUtil.RequestError;
+import com.ew.component.actionLog.annotation.ActionLog;
 import com.ew.modules.system.entity.Role;
 import com.ew.modules.system.service.IRoleService;
 
@@ -78,6 +80,7 @@ public class RoleController {
 		@ApiImplicitParam(name = "title",value = "角色名称",required = true,paramType = "query"),
 	})
 	@RequiresPermissions(value = {"system:role:add"})
+	@ActionLog(name = "添加角色",type = ActionLogEnum.SYSTEM)
 	@PostMapping("add")
 	public ResultDto<Boolean> add(@NotBlank @RequestParam(name = "title",required = false)String title) {
 		Role role = new Role();
@@ -93,6 +96,7 @@ public class RoleController {
 		@ApiImplicitParam(name = "Id",value = "标识",required = true,paramType = "path"),
 		@ApiImplicitParam(name = "title",value = "角色名称",required = true,paramType = "query"),
 	})
+	@ActionLog(name = "编辑角色",type = ActionLogEnum.SYSTEM)
 	@RequiresPermissions(value = {"system:role:edit"})
 	@PostMapping(path = "/edit/{Id}")
 	public ResultDto<Boolean> edit(
@@ -110,6 +114,7 @@ public class RoleController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = "Id",value = "标识",required = true,paramType = "path"),
 	})
+	@ActionLog(name = "删除角色",type = ActionLogEnum.SYSTEM)
 	@RequiresPermissions(value = {"system:role:del"})
 	@PostMapping(path = "/delete/{Id}")
 	public ResultDto<Boolean> delete(@NotNull @Min(value = 1) @PathVariable(name = "Id",required = true) Long Id) {

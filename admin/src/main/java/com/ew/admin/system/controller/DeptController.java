@@ -19,8 +19,10 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.ew.admin.system.form.DeptForm;
 import com.ew.common.dto.ResultDto;
+import com.ew.common.enums.ActionLogEnum;
 import com.ew.common.utils.ResultDtoUtil;
 import com.ew.common.utils.ResultDtoUtil.RequestError;
+import com.ew.component.actionLog.annotation.ActionLog;
 import com.ew.modules.system.entity.Dept;
 import com.ew.modules.system.service.IDeptService;
 
@@ -77,6 +79,7 @@ public class DeptController {
 	
 	@ApiOperation(value = "添加部门",notes = "")
 	@RequiresPermissions(value = { "system:dept:add" })
+	@ActionLog(name = "添加部门",type = ActionLogEnum.SYSTEM)
 	@PostMapping("add")
 	public ResultDto<Boolean> add(@RequestBody @Validated DeptForm form) {
 		Dept entity = new Dept();
@@ -92,6 +95,7 @@ public class DeptController {
 		@ApiImplicitParam(name = "Id",value = "标识",required = true,paramType = "path"),
 	})
 	@RequiresPermissions(value = { "system:dept:edit" })
+	@ActionLog(name = "编辑部门",type = ActionLogEnum.SYSTEM)
 	@PostMapping(path = "/edit/{Id}")
 	public ResultDto<Boolean> edit(@RequestBody @Validated DeptForm form,
 			@NotNull @Min(value = 1) @PathVariable(name = "Id",required = true) Long Id) {
@@ -108,6 +112,7 @@ public class DeptController {
 		@ApiImplicitParam(name = "Id",value = "标识",required = true,paramType = "path"),
 	})
 	@RequiresPermissions(value = { "system:dept:del" })
+	@ActionLog(name = "删除部门",type = ActionLogEnum.SYSTEM)
 	@PostMapping(path = "/delete/{Id}")
 	public ResultDto<Boolean> delete(@NotNull @Min(value = 1) @PathVariable(name = "Id",required = true) Long Id) {
 		if (service.removeById(Id)) {

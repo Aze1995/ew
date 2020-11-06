@@ -5,7 +5,6 @@ import java.util.List;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
-import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +18,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ew.admin.system.form.MenuForm;
 import com.ew.common.dto.ResultDto;
+import com.ew.common.enums.ActionLogEnum;
 import com.ew.common.utils.ResultDtoUtil;
 import com.ew.common.utils.ResultDtoUtil.RequestError;
+import com.ew.component.actionLog.annotation.ActionLog;
 import com.ew.modules.system.entity.Menu;
 import com.ew.modules.system.service.IMenuService;
 import com.ew.modules.system.vo.MenuVo;
@@ -70,6 +71,7 @@ public class MenuController {
 	
 	@ApiOperation(value = "添加菜单",notes = "")
 	@RequiresPermissions(value = {"system:menu:add"})
+	@ActionLog(name = "添加菜单",type = ActionLogEnum.SYSTEM)
 	@PostMapping("add")
 	public ResultDto<Boolean> add(@RequestBody @Validated MenuForm form) {
 		Menu entity = new Menu();
@@ -85,6 +87,7 @@ public class MenuController {
 		@ApiImplicitParam(name = "Id",value = "标识",required = true,paramType = "path"),
 	})
 	@RequiresPermissions(value = {"system:menu:edit"})
+	@ActionLog(name = "编辑菜单",type = ActionLogEnum.SYSTEM)
 	@PostMapping(path = "/edit/{Id}")
 	public ResultDto<Boolean> edit(@RequestBody @Validated MenuForm form,
 			@NotNull @Min(value = 1) @PathVariable(name = "Id",required = true) Long Id) {
@@ -100,6 +103,7 @@ public class MenuController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = "Id",value = "标识",required = true,paramType = "path"),
 	})
+	@ActionLog(name = "删除菜单",type = ActionLogEnum.SYSTEM)
 	@RequiresPermissions(value = {"system:menu:del"})
 	@PostMapping(path = "/delete/{Id}")
 	public ResultDto<Boolean> delete(@NotNull @Min(value = 1) @PathVariable(name = "Id",required = true) Long Id) {

@@ -4,6 +4,7 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.BeanUtils;
 
+import com.ew.common.Constant.DefaultConst;
 import com.ew.modules.system.entity.User;
 
 /**
@@ -26,9 +27,17 @@ public class ShiroUtil {
 		Object obj = getSubject().getPrincipal();
 		if (obj != null) {
 			user = new User();
-			BeanUtils.copyProperties(user, obj);
+			BeanUtils.copyProperties(obj, user);
 		}
 		return user;
+	}
+	
+	public static boolean isAdmin() {
+		User user = getLoginUser();
+		if (user != null) {
+			return DefaultConst.SYSTEM_ADMIN_NAME.equals(user.getUsername());
+		}
+		return false;
 	}
 
 }
