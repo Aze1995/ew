@@ -6,6 +6,7 @@ import java.util.Set;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -43,6 +44,7 @@ public class RoleMenuController {
 		@ApiImplicitParam(name = "roleId", value = "角色标识", required = true, paramType = "path"), 
 	})
 	@ApiResponses({ @ApiResponse(code = 200, message = "data -> 角色拥有权限的菜单Id") })
+	@RequiresPermissions(value = {"system:roleMenu:view"})
 	@GetMapping(path = "/query/{roleId}")
 	public ResultDto<List<Long>> query(
 			@NotNull @Min(value = 1) @PathVariable(name = "roleId", required = true) Long roleId) {
@@ -55,6 +57,7 @@ public class RoleMenuController {
 		@ApiImplicitParam(name = "Id", value = "角色标识", required = true, paramType = "path"), 
 		@ApiImplicitParam(name = "menuIds", value = "菜单标识集", required = true, paramType = "body"), 
 	})
+	@RequiresPermissions(value = {"system:roleMenu:edit"})
 	@PostMapping(path = "/edit/{Id}")
 	public ResultDto<Boolean> edit(@NotNull @Min(value = 1) @PathVariable(name = "Id", required = true) Long roleId,
 			@RequestBody @Validated @NotNull Set<Long> menuIds) {

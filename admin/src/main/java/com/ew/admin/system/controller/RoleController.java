@@ -4,6 +4,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -48,6 +49,7 @@ public class RoleController {
 		@ApiImplicitParam(name = "pageNumb",defaultValue = "1",value = "查询页码",required = false,paramType = "query"),
 		@ApiImplicitParam(name = "pagSize",defaultValue = "10",value = "每页条数",required = false,paramType = "query"),
 	})
+	@RequiresPermissions(value = {"system:role:view"})
 	@GetMapping(path = "list")
 	public ResultDto<IPage<Role>> list(
 				@RequestParam(name = "pageNumb",required = false,defaultValue = "1") Integer pageNumb,
@@ -61,6 +63,7 @@ public class RoleController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = "Id",value = "标识",required = true,paramType = "path"),
 	})
+	@RequiresPermissions(value = {"system:role:view"})
 	@GetMapping(path = "/query/{Id}")
 	public ResultDto<Role> query(@NotNull @Min(value = 1) @PathVariable(name = "Id",required = true) Long Id) {
 		Role data = service.getById(Id);
@@ -74,6 +77,7 @@ public class RoleController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = "title",value = "角色名称",required = true,paramType = "query"),
 	})
+	@RequiresPermissions(value = {"system:role:add"})
 	@PostMapping("add")
 	public ResultDto<Boolean> add(@NotBlank @RequestParam(name = "title",required = false)String title) {
 		Role role = new Role();
@@ -89,6 +93,7 @@ public class RoleController {
 		@ApiImplicitParam(name = "Id",value = "标识",required = true,paramType = "path"),
 		@ApiImplicitParam(name = "title",value = "角色名称",required = true,paramType = "query"),
 	})
+	@RequiresPermissions(value = {"system:role:edit"})
 	@PostMapping(path = "/edit/{Id}")
 	public ResultDto<Boolean> edit(
 			@NotNull @Min(value = 1) @PathVariable(name = "Id",required = true) Long Id,
@@ -105,6 +110,7 @@ public class RoleController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = "Id",value = "标识",required = true,paramType = "path"),
 	})
+	@RequiresPermissions(value = {"system:role:del"})
 	@PostMapping(path = "/delete/{Id}")
 	public ResultDto<Boolean> delete(@NotNull @Min(value = 1) @PathVariable(name = "Id",required = true) Long Id) {
 		if (service.removeById(Id)) {

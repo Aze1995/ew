@@ -5,6 +5,8 @@ import java.util.List;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -46,6 +48,7 @@ public class MenuController {
 	private IMenuService service;
 	
 	@ApiOperation(value = "菜单列表")
+	@RequiresPermissions(value = {"system:menu:view"})
 	@GetMapping(path = "list")
 	public ResultDto<List<MenuVo>> list(){
 		return ResultDtoUtil.success(service.findAll());
@@ -55,6 +58,7 @@ public class MenuController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = "Id",value = "标识",required = true,paramType = "path"),
 	})
+	@RequiresPermissions(value = {"system:menu:view"})
 	@GetMapping(path = "/query/{Id}")
 	public ResultDto<Menu> query(@NotNull @Min(value = 1) @PathVariable(name = "Id",required = true) Long Id) {
 		Menu data = service.getById(Id);
@@ -65,6 +69,7 @@ public class MenuController {
 	}
 	
 	@ApiOperation(value = "添加菜单",notes = "")
+	@RequiresPermissions(value = {"system:menu:add"})
 	@PostMapping("add")
 	public ResultDto<Boolean> add(@RequestBody @Validated MenuForm form) {
 		Menu entity = new Menu();
@@ -79,6 +84,7 @@ public class MenuController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = "Id",value = "标识",required = true,paramType = "path"),
 	})
+	@RequiresPermissions(value = {"system:menu:edit"})
 	@PostMapping(path = "/edit/{Id}")
 	public ResultDto<Boolean> edit(@RequestBody @Validated MenuForm form,
 			@NotNull @Min(value = 1) @PathVariable(name = "Id",required = true) Long Id) {
@@ -94,6 +100,7 @@ public class MenuController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = "Id",value = "标识",required = true,paramType = "path"),
 	})
+	@RequiresPermissions(value = {"system:menu:del"})
 	@PostMapping(path = "/delete/{Id}")
 	public ResultDto<Boolean> delete(@NotNull @Min(value = 1) @PathVariable(name = "Id",required = true) Long Id) {
 		if (service.removeById(Id)) {

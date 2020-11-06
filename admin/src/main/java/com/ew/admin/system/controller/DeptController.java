@@ -3,6 +3,7 @@ package com.ew.admin.system.controller;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -50,6 +51,7 @@ public class DeptController {
 		@ApiImplicitParam(name = "pageNumb",defaultValue = "1",value = "查询页码",required = false,paramType = "query"),
 		@ApiImplicitParam(name = "pagSize",defaultValue = "10",value = "每页条数",required = false,paramType = "query"),
 	})
+	@RequiresPermissions(value = { "system:dept:view" })
 	@GetMapping(path = "list")
 	public ResultDto<IPage<Dept>> list(
 				@RequestParam(name = "pageNumb",required = false,defaultValue = "1") Integer pageNumb,
@@ -63,6 +65,7 @@ public class DeptController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = "Id",value = "标识",required = true,paramType = "path"),
 	})
+	@RequiresPermissions(value = { "system:dept:view" })
 	@GetMapping(path = "/query/{Id}")
 	public ResultDto<Dept> query(@NotNull @Min(value = 1) @PathVariable(name = "Id",required = true) Long Id) {
 		Dept data = service.getById(Id);
@@ -73,6 +76,7 @@ public class DeptController {
 	}
 	
 	@ApiOperation(value = "添加部门",notes = "")
+	@RequiresPermissions(value = { "system:dept:add" })
 	@PostMapping("add")
 	public ResultDto<Boolean> add(@RequestBody @Validated DeptForm form) {
 		Dept entity = new Dept();
@@ -87,6 +91,7 @@ public class DeptController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = "Id",value = "标识",required = true,paramType = "path"),
 	})
+	@RequiresPermissions(value = { "system:dept:edit" })
 	@PostMapping(path = "/edit/{Id}")
 	public ResultDto<Boolean> edit(@RequestBody @Validated DeptForm form,
 			@NotNull @Min(value = 1) @PathVariable(name = "Id",required = true) Long Id) {
@@ -102,6 +107,7 @@ public class DeptController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = "Id",value = "标识",required = true,paramType = "path"),
 	})
+	@RequiresPermissions(value = { "system:dept:del" })
 	@PostMapping(path = "/delete/{Id}")
 	public ResultDto<Boolean> delete(@NotNull @Min(value = 1) @PathVariable(name = "Id",required = true) Long Id) {
 		if (service.removeById(Id)) {

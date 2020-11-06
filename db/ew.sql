@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50726
 File Encoding         : 65001
 
-Date: 2020-11-06 10:47:58
+Date: 2020-11-06 10:54:12
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -124,8 +124,6 @@ INSERT INTO `sys_menu` VALUES ('187', '添加', '183', null, null, 'system:role:
 INSERT INTO `sys_menu` VALUES ('188', '权限管理', '167', null, '/system/roleMenu.html', '#', null, '2', '13', null, null, null, null, null, '1');
 INSERT INTO `sys_menu` VALUES ('189', '查询', '188', null, null, 'system:roleMenu:view', null, '3', '1', null, null, null, null, null, '1');
 INSERT INTO `sys_menu` VALUES ('190', '编辑', '188', null, null, 'system:roleMenu:edit', null, '3', '1', null, null, null, null, null, '1');
-INSERT INTO `sys_menu` VALUES ('191', '删除', '188', null, null, 'system:roleMenu:del', null, '3', '1', null, null, null, null, null, '1');
-INSERT INTO `sys_menu` VALUES ('192', '添加', '188', null, null, 'system:roleMenu:add', null, '3', '1', null, null, null, null, null, '1');
 INSERT INTO `sys_menu` VALUES ('193', '日志管理', '167', null, '/system/log.html', '#', null, '2', '13', null, null, null, null, null, '1');
 INSERT INTO `sys_menu` VALUES ('194', '查询', '193', null, null, 'system:log:view', null, '3', '1', null, null, null, null, null, '1');
 
