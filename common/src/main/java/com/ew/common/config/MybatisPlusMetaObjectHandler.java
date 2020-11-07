@@ -27,7 +27,6 @@ public class MybatisPlusMetaObjectHandler implements MetaObjectHandler {
 	@Override
 	public void insertFill(MetaObject metaObject) {
 		Object createBy = getFieldValByName("createBy", metaObject);
-		System.err.println(Thread.currentThread().getName() +" -> MybatisPlusMetaObjectHandler.insertFill ");
 		if (createBy == null) {
 			setInsertFieldValByName("createBy", LoginUserUtil.getLoginUserId(), metaObject);
 		}
@@ -38,9 +37,8 @@ public class MybatisPlusMetaObjectHandler implements MetaObjectHandler {
 	@Override
 	public void updateFill(MetaObject metaObject) {
 		Object updateBy = getFieldValByName("updateBy", metaObject);
-		System.err.println(Thread.currentThread().getName() +" -> MybatisPlusMetaObjectHandler.updateFill ");
 		if (updateBy == null) {
-//			setUpdateFieldValByName("updateBy", LoginUserUtil.getLoginUserId(), metaObject);
+			setUpdateFieldValByName("updateBy", LoginUserUtil.getLoginUserId(), metaObject);
 		}
 		setUpdateFieldValByName("updateDate", new Date(), metaObject);
 	}
