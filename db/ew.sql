@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50726
 File Encoding         : 65001
 
-Date: 2020-11-06 10:54:12
+Date: 2020-11-07 18:38:17
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -32,19 +32,11 @@ CREATE TABLE `sys_action_log` (
   `oper_name` varchar(255) DEFAULT NULL COMMENT '产生日志的用户昵称',
   `create_by` bigint(20) DEFAULT NULL COMMENT '创建用户',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='系统-行为日志';
+) ENGINE=InnoDB AUTO_INCREMENT=111 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='系统-行为日志';
 
 -- ----------------------------
 -- Records of sys_action_log
 -- ----------------------------
-INSERT INTO `sys_action_log` VALUES ('18', '登入', null, '127.0.0.1', 'com.ew.admin.system.controller.LoginController', 'login', null, '用户登入接口', '2020-11-05 19:03:22', null, null);
-INSERT INTO `sys_action_log` VALUES ('19', '登入', null, '127.0.0.1', 'com.ew.admin.system.controller.LoginController', 'login', null, '用户登入接口', '2020-11-05 19:03:22', null, null);
-INSERT INTO `sys_action_log` VALUES ('20', '登入', null, '127.0.0.1', 'com.ew.admin.system.controller.LoginController', 'login', null, '用户登入接口', '2020-11-06 10:19:20', null, null);
-INSERT INTO `sys_action_log` VALUES ('21', '登入', null, '127.0.0.1', 'com.ew.admin.system.controller.LoginController', 'login', null, '用户登入接口', '2020-11-06 10:21:36', null, null);
-INSERT INTO `sys_action_log` VALUES ('22', '登入', null, '127.0.0.1', 'com.ew.admin.system.controller.LoginController', 'login', null, '用户登入接口', '2020-11-06 10:22:49', null, null);
-INSERT INTO `sys_action_log` VALUES ('23', '登入', null, '127.0.0.1', 'com.ew.admin.system.controller.LoginController', 'login', null, '用户登入接口', '2020-11-06 10:28:11', null, null);
-INSERT INTO `sys_action_log` VALUES ('24', '登入', null, '127.0.0.1', 'com.ew.admin.system.controller.LoginController', 'login', null, '用户登入接口', '2020-11-06 10:31:11', null, null);
-INSERT INTO `sys_action_log` VALUES ('25', '登入', null, '127.0.0.1', 'com.ew.admin.system.controller.LoginController', 'login', null, '用户登入接口', '2020-11-06 10:45:05', null, null);
 
 -- ----------------------------
 -- Table structure for sys_dept
@@ -141,19 +133,12 @@ CREATE TABLE `sys_role` (
   `update_by` bigint(20) DEFAULT NULL COMMENT '更新用户',
   `status` tinyint(4) DEFAULT NULL COMMENT '状态（1:正常,2:删除）',
   PRIMARY KEY (`role_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COMMENT='系统-角色';
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COMMENT='系统-角色';
 
 -- ----------------------------
 -- Records of sys_role
 -- ----------------------------
-INSERT INTO `sys_role` VALUES ('1', 'instrt', null, null, null, null, null, null);
-INSERT INTO `sys_role` VALUES ('2', 'update', null, null, null, null, null, '2');
-INSERT INTO `sys_role` VALUES ('6', 'update', null, null, null, null, null, '2');
-INSERT INTO `sys_role` VALUES ('7', 'update', null, '2020-10-31 14:25:00', '2020-10-31 14:25:00', null, null, '2');
-INSERT INTO `sys_role` VALUES ('8', 'update', null, '2020-10-31 14:30:49', '2020-10-31 14:30:50', null, null, '2');
-INSERT INTO `sys_role` VALUES ('9', 'update', null, '2020-10-31 14:32:12', null, null, null, '2');
-INSERT INTO `sys_role` VALUES ('10', '发', null, '2020-11-03 15:15:02', '2020-11-03 15:51:08', '1', '1', '2');
-INSERT INTO `sys_role` VALUES ('11', '角色12321', null, '2020-11-03 15:51:17', '2020-11-03 15:51:17', '1', '1', '1');
+INSERT INTO `sys_role` VALUES ('12', '测试角色', null, '2020-11-07 15:02:33', '2020-11-07 15:02:33', null, null, '1');
 
 -- ----------------------------
 -- Table structure for sys_role_menu
@@ -168,12 +153,15 @@ CREATE TABLE `sys_role_menu` (
 -- ----------------------------
 -- Records of sys_role_menu
 -- ----------------------------
-INSERT INTO `sys_role_menu` VALUES ('1', '165');
-INSERT INTO `sys_role_menu` VALUES ('1', '170');
-INSERT INTO `sys_role_menu` VALUES ('11', '112');
-INSERT INTO `sys_role_menu` VALUES ('11', '123');
-INSERT INTO `sys_role_menu` VALUES ('11', '666');
-INSERT INTO `sys_role_menu` VALUES ('123', '1054661322597744600');
+INSERT INTO `sys_role_menu` VALUES ('12', '164');
+INSERT INTO `sys_role_menu` VALUES ('12', '165');
+INSERT INTO `sys_role_menu` VALUES ('12', '166');
+INSERT INTO `sys_role_menu` VALUES ('12', '167');
+INSERT INTO `sys_role_menu` VALUES ('12', '168');
+INSERT INTO `sys_role_menu` VALUES ('12', '170');
+INSERT INTO `sys_role_menu` VALUES ('12', '171');
+INSERT INTO `sys_role_menu` VALUES ('12', '172');
+INSERT INTO `sys_role_menu` VALUES ('12', '173');
 
 -- ----------------------------
 -- Table structure for sys_user
@@ -197,9 +185,10 @@ CREATE TABLE `sys_user` (
   `update_by` bigint(20) DEFAULT NULL COMMENT '更新人',
   `status` tinyint(4) DEFAULT NULL COMMENT '状态（1:正常,2:删除）',
   PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='系统-用户';
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='系统-用户';
 
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
 INSERT INTO `sys_user` VALUES ('1', 'ew', '超级管理员', '123456', '2', '1', '123', '1', '123@163.com', '13544672759', '超级管理员', '2020-10-31 19:14:55', '1', '2020-11-03 16:37:41', '1', '1');
+INSERT INTO `sys_user` VALUES ('14', 'zs', '张三', '123456', '1', '12', '1', '1', '1', '135', null, '2020-11-06 15:30:16', null, '2020-11-07 18:34:28', null, '1');
