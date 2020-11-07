@@ -77,7 +77,7 @@ public class AuthRealm extends AuthorizingRealm {
         if (!user.getPassword().equals(loginPassword)) {
         	throw new UnknownAccountException();//密码不正确-用户名密码错误
 		}
-        LoginUserUtil.setLoginUser(getLoginUser(user));//初始化系统登入用户茜
+        LoginUserUtil.setLoginUser(getLoginUser(user));//初始化系统登入用户信息
         ByteSource salt = ByteSource.Util.bytes("");
 		return new SimpleAuthenticationInfo(new UserInfo(user), user.getPassword(), salt, getName());
 	}
@@ -105,7 +105,7 @@ public class AuthRealm extends AuthorizingRealm {
 		LoginUser loginUser = new LoginUser();
 		loginUser.setUserId(user.getUserId());
 		loginUser.setNickname(user.getNickname());
-		loginUser.setUserId(user.getUserId());
+		loginUser.setUsername(user.getUsername());
 		return loginUser;
 	}
 	

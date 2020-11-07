@@ -1,5 +1,7 @@
 package com.ew.common.utils;
 
+import org.springframework.web.context.request.ServletRequestAttributes;
+
 import com.ew.common.Constant.DefaultConst;
 import com.ew.common.vo.LoginUser;
 
@@ -15,7 +17,7 @@ public class LoginUserUtil {
 	 * @param user
 	 */
 	public static void setLoginUser(LoginUser user) {
-		HttpServletUtil.getRequest().setAttribute(DefaultConst.LOGIN_USER_INFO, user);
+		HttpServletUtil.getSession().setAttribute(DefaultConst.LOGIN_USER_INFO, user);
 	}
 	
 	/**
@@ -23,7 +25,11 @@ public class LoginUserUtil {
 	 * @return
 	 */
 	public static LoginUser getLoginUser() {
-		Object userInfo = HttpServletUtil.getRequest().getAttribute(DefaultConst.LOGIN_USER_INFO);
+		ServletRequestAttributes servletRequest = HttpServletUtil.getServletRequest();
+		if (servletRequest == null) {
+			return null;
+		}
+		Object userInfo = HttpServletUtil.getSession().getAttribute(DefaultConst.LOGIN_USER_INFO);
 		if (userInfo == null) {
 			return null;
 		}
@@ -31,7 +37,7 @@ public class LoginUserUtil {
 	}
 	
 	public static boolean isLogin() {
-		return getLoginUser() == null;
+		return getLoginUser() != null;
 	}
 	
 	/**
@@ -49,7 +55,7 @@ public class LoginUserUtil {
 	 */
 	public static String getLoginNickName() {
 		LoginUser user = getLoginUser();
-		return user == null?null:user.getUsername();
+		return user == null?null:user.getNickname();
 	}
 	
 	

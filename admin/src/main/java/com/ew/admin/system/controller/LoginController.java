@@ -52,4 +52,14 @@ public class LoginController {
         }
 	}
 	
+	@ApiOperation(value = "退出登入")
+	@PostMapping("logout")
+	public ResultDto<User> logout(){
+		// 1.获取Subject主体对象
+        Subject subject = SecurityUtils.getSubject();
+        // 2退出登入
+        subject.logout();
+        return ResultDtoUtil.success();
+	}
+	
 }

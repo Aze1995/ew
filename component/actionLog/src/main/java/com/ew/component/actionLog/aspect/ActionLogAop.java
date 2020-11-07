@@ -52,7 +52,6 @@ public class ActionLogAop {
 	public Object recordLog(ProceedingJoinPoint point) throws Throwable {
 		// 先执行切入点，获取返回值
 		Object proceed = point.proceed();
-
 		/* 读取ActionLog注解消息 */
 		Method targetMethod = ((MethodSignature) (point.getSignature())).getMethod();
 		com.ew.component.actionLog.annotation.ActionLog anno = targetMethod

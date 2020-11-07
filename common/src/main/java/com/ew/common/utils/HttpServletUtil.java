@@ -2,6 +2,7 @@ package com.ew.common.utils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -34,6 +35,13 @@ public class HttpServletUtil {
 		return getServletRequest().getResponse();
 	}
 
+	/**
+	 *获取 HttpSession对象
+	 */
+	public static HttpSession getSession() {
+		 return getRequest().getSession();
+	}
+	
 	/**
 	 * 获取请求参数
 	 */
