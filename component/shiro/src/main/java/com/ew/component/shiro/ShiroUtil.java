@@ -1,11 +1,14 @@
 package com.ew.component.shiro;
 
+import java.util.List;
+
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.BeanUtils;
 
 import com.ew.common.Constant.DefaultConst;
 import com.ew.modules.system.entity.User;
+import com.ew.modules.system.vo.MenuVo;
 
 /**
  * @program: ew
@@ -22,15 +25,32 @@ public class ShiroUtil {
 		getSubject().logout();
 	}
 
+	/**
+	 * 登入用户信息
+	 * @return
+	 */
 	public static User getLoginUser() {
 		User user = null;
 		Object obj = getSubject().getPrincipal();
 		if (obj != null) {
 			user = new User();
-			BeanUtils.copyProperties(obj, user);
+			BeanUtils.copyProperties(((UserInfo)obj).getUser(), user);
 		}
 		return user;
 	}
+	
+	/**
+	 * 获取用户菜单
+	 * @return
+	 */
+	public static List<MenuVo> getUserMenu() {
+		Object obj = getSubject().getPrincipal();
+		if (obj != null) {
+			return ((UserInfo)obj).getMenus();
+		}
+		return null;
+	}
+	
 	
 	public static boolean isAdmin() {
 		User user = getLoginUser();

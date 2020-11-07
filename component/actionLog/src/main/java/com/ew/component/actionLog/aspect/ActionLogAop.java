@@ -19,20 +19,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import com.alibaba.fastjson.JSONObject;
 import com.ew.common.utils.HttpServletUtil;
+import com.ew.common.utils.LoginUserUtil;
 import com.ew.common.utils.SpringContextUtil;
 import com.ew.component.actionLog.action.base.ActionSign;
 import com.ew.component.actionLog.action.base.ActionSign.DefaultActionSign;
 import com.ew.component.actionLog.action.base.ResultLog;
-import com.ew.component.shiro.ShiroUtil;
 import com.ew.modules.system.entity.ActionLog;
-import com.ew.modules.system.entity.User;
 import com.ew.modules.system.service.IActionLogService;
 
 import lombok.extern.slf4j.Slf4j;
 
 /**
  * 日志拦截
- * 
  * @author Mr`Huang
  * @Date 2020-11-5 18:21:08
  */
@@ -72,10 +70,9 @@ public class ActionLogAop {
 		actionLog.setMethod(targetMethod.getName());
 		actionLog.setIpaddr(HttpServletUtil.getRequestHost());
 		actionLog.setType(anno.type().getCode());//日志类型
-		User user = ShiroUtil.getLoginUser();
-		if (user != null) {
-			actionLog.setOperName(user.getNickname());//用户已登入
-			actionLog.setCreateBy(user.getUserId());			
+		if (LoginUserUtil.isLogin()) {
+			actionLog.setOperName(LoginUserUtil.getLoginNickName());//登入用户昵称
+			actionLog.setCreateBy(LoginUserUtil.getLoginUserId());//登入用户标识			
 		}
 		ResultLog resultLog = new ResultLog(proceed, actionLog, point);
 		if (StringUtils.isNotBlank(key) && action != DefaultActionSign.class) {

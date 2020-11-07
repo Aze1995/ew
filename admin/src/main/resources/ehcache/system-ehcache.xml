@@ -33,6 +33,9 @@
            overflowToDisk="true"
            maxElementsOnDisk="10000000"
            diskExpiryThreadIntervalSeconds="120"
-           memoryStoreEvictionPolicy="LFU">
+           memoryStoreEvictionPolicy="LFU"
+           copyOnWrite="true"
+           copyOnRead="true" >
+           <copyStrategy class="com.ew.common.cache.JsonDeepCopyStrategy"/>
     </cache>
 </ehcache>

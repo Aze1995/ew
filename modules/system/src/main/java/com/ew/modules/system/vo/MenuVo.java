@@ -5,11 +5,13 @@ import java.util.List;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Setter
+@Getter
 @ApiModel("菜单")
-public class MenuVo implements Serializable {
+public class MenuVo implements Serializable{
 
 	private static final long serialVersionUID = -6692788354167638339L;
 	
@@ -36,5 +38,10 @@ public class MenuVo implements Serializable {
 	
 	@ApiModelProperty(notes = "子级菜单")
 	private List<MenuVo> menu;
+	
+	@Override
+	public String toString() {
+		return super.toString();
+	}
 	
 }

@@ -22,10 +22,6 @@
 			<groupId>com.ew</groupId>
 			<artifactId>system</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>com.ew</groupId>
-			<artifactId>shiro</artifactId>
-		</dependency>
 		
 	</dependencies>
 

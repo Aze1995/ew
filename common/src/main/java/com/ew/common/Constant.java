@@ -17,6 +17,10 @@ public class Constant {
 		public static final long TOP_LEVE_PID = 0L;
 		/**系统管理员用户名*/
 		public static final String SYSTEM_ADMIN_NAME = "ew";
+		/**登入用户*/
+		public static final String LOGIN_USER_INFO = "LOGIN_USER_INFO";
+		/**登入菜单列表权限*/
+		public static final String MENU_PERMISSIONS = "system:menu:list";
 	}
 	
 

@@ -17,11 +17,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ew.admin.system.form.MenuForm;
+import com.ew.common.Constant.DefaultConst;
 import com.ew.common.dto.ResultDto;
 import com.ew.common.enums.ActionLogEnum;
 import com.ew.common.utils.ResultDtoUtil;
 import com.ew.common.utils.ResultDtoUtil.RequestError;
 import com.ew.component.actionLog.annotation.ActionLog;
+import com.ew.component.shiro.ShiroUtil;
 import com.ew.modules.system.entity.Menu;
 import com.ew.modules.system.service.IMenuService;
 import com.ew.modules.system.vo.MenuVo;
@@ -49,10 +51,10 @@ public class MenuController {
 	private IMenuService service;
 	
 	@ApiOperation(value = "菜单列表")
-	@RequiresPermissions(value = {"system:menu:view"})
+	@RequiresPermissions(value = {DefaultConst.MENU_PERMISSIONS})
 	@GetMapping(path = "list")
 	public ResultDto<List<MenuVo>> list(){
-		return ResultDtoUtil.success(service.findAll());
+		return ResultDtoUtil.success(ShiroUtil.getUserMenu());
 	}
 
 	@ApiOperation(value = "菜单详情")
@@ -82,6 +84,14 @@ public class MenuController {
 		return RequestError.business("添加失败");
 	}
 
+	@ApiOperation(value = "所有菜单列表")
+	@RequiresPermissions(value = {"system:menu:edit"})
+	@GetMapping(path = "listAll")
+	public ResultDto<List<MenuVo>> listAll(){
+		List<MenuVo> list = service.findAll();
+		return ResultDtoUtil.success(list);
+	}
+	
 	@ApiOperation(value = "编辑菜单")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = "Id",value = "标识",required = true,paramType = "path"),
