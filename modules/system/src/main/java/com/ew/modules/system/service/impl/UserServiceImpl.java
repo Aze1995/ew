@@ -35,7 +35,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 		User user = new User();
 		user.setUserId(userId);
 		user.setPassword(password);
-		return baseMapper.updateById(user) > 0;
+		int resultSize = baseMapper.updateById(user);
+		return resultSize > 0;
 	}
 
 	@Override

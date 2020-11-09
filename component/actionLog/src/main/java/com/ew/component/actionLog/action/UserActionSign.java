@@ -32,7 +32,7 @@ public class UserActionSign implements ActionSign {
 		if (!log.isSuccess()) {
 			String msg = String.format("后台登录失败：[%s]用户名或密码错误", username);
 			actionLog.setMessage(msg);
-			actionLog.setOperName(username);
+			actionLog.setOperName(null);
 			return;
 		}
 		actionLog.setMessage("登入成功");

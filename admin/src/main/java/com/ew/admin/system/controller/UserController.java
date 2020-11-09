@@ -124,6 +124,9 @@ public class UserController {
 		if (userId.equals(ShiroUtil.getLoginUser().getUserId())) {
 			return RequestError.business("无法重置当前登入用户");
 		}
+		if (userId.equals(DefaultConst.SYSTEM_ADMIN_ID)) {
+			return RequestError.badRequest("权限不足");
+		}
 		if (userService.updateUserPassWord(userId, DefaultConst.USER_PASSWORD)) {
 			return ResultDtoUtil.success();
 		}

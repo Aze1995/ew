@@ -70,6 +70,7 @@ public class AuthRealm extends AuthorizingRealm {
 		UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
 		User user = userService.queryUserInfoBy(token.getUsername());
 	      // 判断用户名是否存在
+		LoginUserUtil.setLoginUser(null);
         if (user == null) {
             throw new UnknownAccountException();//用户不存在-用户名密码错误
         }
