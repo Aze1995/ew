@@ -1,4 +1,4 @@
-package com.ew.component.shiro;
+package com.ew.component.shiro.pojo;
 
 import java.io.Serializable;
 import java.util.List;

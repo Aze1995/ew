@@ -49,6 +49,7 @@ public class LoginController {
             subject.login(token);
             return ResultDtoUtil.success();
         } catch (AuthenticationException e) {
+        	e.printStackTrace();
             return ResultDtoUtil.RequestError.business("用户名或密码错误");
         }
 	}

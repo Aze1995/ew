@@ -1,4 +1,4 @@
-package com.ew.component.shiro;
+package com.ew.component.shiro.utils;
 
 import java.util.List;
 
@@ -7,6 +7,7 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.beans.BeanUtils;
 
 import com.ew.common.Constant.DefaultConst;
+import com.ew.component.shiro.pojo.UserInfo;
 import com.ew.modules.system.entity.User;
 import com.ew.modules.system.vo.MenuVo;
 
@@ -58,6 +59,28 @@ public class ShiroUtil {
 			return DefaultConst.SYSTEM_ADMIN_NAME.equals(user.getUsername());
 		}
 		return false;
+	}
+	
+	/**
+	 * 验证密码
+	 * @param password
+	 * @return
+	 */
+	public static boolean verifyPassword(String password) {
+		User user = getLoginUser();
+		if (user == null) {
+			return false;
+		}
+		return PasswordUtil.verify(password, user.getPassword());
+	}
+	
+	/**
+	 * 获取加密密码
+	 * @param password
+	 * @return
+	 */
+	public static String getEncryptPassword(String password) {
+		return PasswordUtil.encrypt(password);
 	}
 
 }

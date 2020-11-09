@@ -27,7 +27,7 @@ import com.ew.common.utils.ResultDtoUtil;
 import com.ew.common.utils.ResultDtoUtil.RequestError;
 import com.ew.component.actionLog.action.UserActionSign;
 import com.ew.component.actionLog.annotation.ActionLog;
-import com.ew.component.shiro.ShiroUtil;
+import com.ew.component.shiro.utils.ShiroUtil;
 import com.ew.modules.system.entity.User;
 import com.ew.modules.system.service.IUserService;
 import com.ew.modules.system.vo.UserVo;
@@ -104,13 +104,15 @@ public class UserController {
 	public ResultDto<Boolean> editPassWord( @NotBlank String oldPassword, // 原密码
 											@NotBlank String newPassowrd) {// 新密码
 		Long userId = ShiroUtil.getLoginUser().getUserId();
-		if (!userService.verifyPassword(userId, oldPassword)) {
-			return RequestError.business("源密码不正确");
+		if (!ShiroUtil.verifyPassword(oldPassword)) {
+			return RequestError.business("原密码不正确");
 		}
-		if (userService.updateUserPassWord(userId, newPassowrd)) {
+		String password = ShiroUtil.getEncryptPassword(newPassowrd);
+		if (userService.updateUserPassWord(userId, password)) {
+			ShiroUtil.getSubject().logout();//更新密码退出登入
 			return ResultDtoUtil.success();
 		}
-		return RequestError.business("源密码验证通过,更新失败");
+		return RequestError.business("原密码验证通过,更新失败");
 	}
 
 	@ApiOperation(value = "重置用户密码")

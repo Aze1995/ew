@@ -23,7 +23,7 @@ import com.ew.common.enums.ActionLogEnum;
 import com.ew.common.utils.ResultDtoUtil;
 import com.ew.common.utils.ResultDtoUtil.RequestError;
 import com.ew.component.actionLog.annotation.ActionLog;
-import com.ew.component.shiro.ShiroUtil;
+import com.ew.component.shiro.utils.ShiroUtil;
 import com.ew.modules.system.entity.Menu;
 import com.ew.modules.system.service.IMenuService;
 import com.ew.modules.system.vo.MenuVo;

@@ -18,4 +18,7 @@ public class LoginUser {
 
     /**用户昵称*/
     private String nickname;
+    
+    /**用户登入密码*/
+    private String password;
 }

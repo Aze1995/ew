@@ -19,6 +19,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.ew.common.Constant.DefaultConst;
 import com.ew.common.utils.LoginUserUtil;
 import com.ew.common.vo.LoginUser;
+import com.ew.component.shiro.pojo.UserInfo;
+import com.ew.component.shiro.utils.PasswordUtil;
+import com.ew.component.shiro.utils.ShiroUtil;
 import com.ew.modules.system.entity.User;
 import com.ew.modules.system.service.IMenuService;
 import com.ew.modules.system.service.IRoleMenuService;
@@ -75,12 +78,12 @@ public class AuthRealm extends AuthorizingRealm {
             throw new UnknownAccountException();//用户不存在-用户名密码错误
         }
         String loginPassword = new String(token.getPassword());
-        if (!user.getPassword().equals(loginPassword)) {
+        if (!PasswordUtil.verify(loginPassword, user.getPassword())) {
         	throw new UnknownAccountException();//密码不正确-用户名密码错误
 		}
         LoginUserUtil.setLoginUser(getLoginUser(user));//初始化系统登入用户信息
         ByteSource salt = ByteSource.Util.bytes("");
-		return new SimpleAuthenticationInfo(new UserInfo(user), user.getPassword(), salt, getName());
+		return new SimpleAuthenticationInfo(new UserInfo(user), loginPassword, salt, getName());
 	}
 	
 	/**
@@ -107,6 +110,7 @@ public class AuthRealm extends AuthorizingRealm {
 		loginUser.setUserId(user.getUserId());
 		loginUser.setNickname(user.getNickname());
 		loginUser.setUsername(user.getUsername());
+		loginUser.setPassword(user.getPassword());
 		return loginUser;
 	}
 	
