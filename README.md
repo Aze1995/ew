@@ -1,10 +1,9 @@
 # Ew
 
 #### 介绍
-EW后台管理系统,基于Spring Boot 简洁的后台权限管理系统
+EW后台管理系统,基于Spring Boot开发简洁的前后端分离权限管理系统
 
-#### 软件架构
- **后端技术** 
+#### 后端技术
 - Spring Boot
 - Mybatis Plus
 - Druid
