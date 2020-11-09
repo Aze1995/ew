@@ -17,7 +17,7 @@ public class DeptForm {
     private String title;
 
 	@NotNull
-	@Min(value = 1)
+	@Min(value = 0)
     @ApiModelProperty(value = "父级ID")
     private Long pid;
 

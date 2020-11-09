@@ -5,6 +5,7 @@ import javax.validation.constraints.NotBlank;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.subject.Subject;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -53,6 +54,7 @@ public class LoginController {
 	}
 	
 	@ApiOperation(value = "退出登入")
+	@RequiresAuthentication
 	@PostMapping("logout")
 	public ResultDto<User> logout(){
 		// 1.获取Subject主体对象
