@@ -23,8 +23,10 @@ import com.ew.admin.system.form.UserForm;
 import com.ew.common.Constant.DefaultConst;
 import com.ew.common.dto.ResultDto;
 import com.ew.common.enums.ActionLogEnum;
+import com.ew.common.utils.LoginUserUtil;
 import com.ew.common.utils.ResultDtoUtil;
 import com.ew.common.utils.ResultDtoUtil.RequestError;
+import com.ew.common.vo.LoginUser;
 import com.ew.component.actionLog.action.UserActionSign;
 import com.ew.component.actionLog.annotation.ActionLog;
 import com.ew.component.shiro.utils.ShiroUtil;
@@ -75,6 +77,13 @@ public class UserController {
 			String nickname, String phone) {
 		IPage<UserVo> userInfo = userService.findUserInfo(new Page<User>(pageNumb, pagSize), userName, nickname, phone);
 		return ResultDtoUtil.success(userInfo);
+	}
+	
+	@ApiOperation(value = "登入用户信息")
+	@RequiresAuthentication//登入成功就有权限
+	@GetMapping(path = "/userInfo")
+	public ResultDto<LoginUser> userInfo(){
+		return ResultDtoUtil.success(LoginUserUtil.getLoginUser());
 	}
 
 	@ApiOperation(value = "更新用户信息")

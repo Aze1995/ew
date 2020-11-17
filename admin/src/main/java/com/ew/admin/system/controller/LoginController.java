@@ -49,7 +49,7 @@ public class LoginController {
             subject.login(token);
             return ResultDtoUtil.success();
         } catch (AuthenticationException e) {
-        	e.printStackTrace();
+        	logout();//登入失败清理历史登入信息
             return ResultDtoUtil.RequestError.business("用户名或密码错误");
         }
 	}

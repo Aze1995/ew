@@ -45,8 +45,9 @@ public class ShiroConfig {
 		filterMap.put("/images/**", "anon");
 		filterMap.put("/fonts/**", "anon");
 		filterMap.put("/css/**", "anon");
+		filterMap.put("/layui/**", "anon");
 		filterMap.put("/favicon.ico", "anon");
-		filterMap.put("/index.html", "anon");
+		filterMap.put("/login.html", "anon");
 		// 通过yml配置文件方式配置的[anon]忽略规则
 		for (String exclude : properties.getExcludes()) {
 			if (!StringUtils.isEmpty(exclude.trim())) {
@@ -59,7 +60,7 @@ public class ShiroConfig {
 		// 设置过滤规则
 		shiroFilterFactoryBean.setFilterChainDefinitionMap(filterMap);
 		// 设置登录页面
-		shiroFilterFactoryBean.setLoginUrl("/index.html");
+		shiroFilterFactoryBean.setLoginUrl("/login.html");
 		// 未授权错误页面
 		shiroFilterFactoryBean.setUnauthorizedUrl("/noAuth");
 
