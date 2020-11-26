@@ -27,7 +27,7 @@
 		<mybatis-plus-generator.version>3.4.0</mybatis-plus-generator.version>
 		<velocity-engine-core.version>2.2</velocity-engine-core.version>
 		<ew.version>1.0-SNAPSHOT</ew.version>
-	</properties>
+	</properties> 
 
 	<dependencyManagement>
 		<dependencies>
