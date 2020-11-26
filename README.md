@@ -3,6 +3,10 @@
 #### 介绍
 EW后台管理系统,基于Spring Boot开发简洁的前后端分离权限管理系统
 
+接口地址:http://127.0.0.1:8081/doc.html
+
+管理账户:ew  密码:123456
+
 #### 后端技术
 - Spring Boot
 - Mybatis Plus

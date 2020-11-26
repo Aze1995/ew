@@ -92,6 +92,7 @@
 <link href="/js/x-editable/1.5.1/bootstrap3-editable/css/bootstrap-editable.min.css" rel="stylesheet">
 <script type="text/javascript" src="/js/x-editable/1.5.1/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
 <script type="text/javascript" src="/js/bootstrap-table/extensions/editable/bootstrap-table-editable.min.js"></script>
+<script type="text/javascript" src="/layui/layui.all.js"></script>
 
 <script type="text/javascript" src="/js/main.min.js"></script>
 <script type="text/javascript">
@@ -154,7 +155,7 @@ $('#tb_departments').bootstrapTable({
                 editUser(row.id);
             },
             'click .del-btn': function (event, value, row, index) {
-            	delUser(row.id);
+            	delUser(row.userId);
             } 
         }
     }], 
@@ -181,13 +182,9 @@ function editUser()
 function delUser(userId)
 {
 	$.ajax({ url: "/system/user/delete/"+userId, 
-		type : "POST",
-		context: document.body, 
+		type : "POST", 
 		success: function(result){
-			console.log(result);
-			if(result.code != 0){
-				alert('信息删除成功');
-			}
+			layer.msg(result.message);
       }});
     
 }

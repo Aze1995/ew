@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : 127.0.0.1
-Source Server Version : 50726
+Source Server         : localhost
+Source Server Version : 50712
 Source Host           : 127.0.0.1:3306
 Source Database       : ew
 
 Target Server Type    : MYSQL
-Target Server Version : 50726
+Target Server Version : 50712
 File Encoding         : 65001
 
-Date: 2020-11-07 18:38:17
+Date: 2020-11-26 18:10:39
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -32,7 +32,7 @@ CREATE TABLE `sys_action_log` (
   `oper_name` varchar(255) DEFAULT NULL COMMENT '产生日志的用户昵称',
   `create_by` bigint(20) DEFAULT NULL COMMENT '创建用户',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=111 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='系统-行为日志';
+) ENGINE=InnoDB AUTO_INCREMENT=137 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='系统-行为日志';
 
 -- ----------------------------
 -- Records of sys_action_log
@@ -84,7 +84,7 @@ CREATE TABLE `sys_menu` (
   `update_by` bigint(20) DEFAULT NULL COMMENT '更新用户',
   `status` tinyint(4) DEFAULT NULL COMMENT '状态（1:正常,2:删除）',
   PRIMARY KEY (`menu_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=195 DEFAULT CHARSET=utf8 COMMENT='系统-菜单';
+) ENGINE=InnoDB AUTO_INCREMENT=197 DEFAULT CHARSET=utf8 COMMENT='系统-菜单';
 
 -- ----------------------------
 -- Records of sys_menu
@@ -118,6 +118,8 @@ INSERT INTO `sys_menu` VALUES ('189', '查询', '188', null, null, 'system:roleM
 INSERT INTO `sys_menu` VALUES ('190', '编辑', '188', null, null, 'system:roleMenu:edit', null, '3', '1', null, null, null, null, null, '1');
 INSERT INTO `sys_menu` VALUES ('193', '日志管理', '167', null, '/system/log.html', '#', null, '2', '13', null, null, null, null, null, '1');
 INSERT INTO `sys_menu` VALUES ('194', '查询', '193', null, null, 'system:log:view', null, '3', '1', null, null, null, null, null, '1');
+INSERT INTO `sys_menu` VALUES ('195', '接口管理', '196', null, '/doc.html', '#', null, '2', '14', null, null, null, null, null, '1');
+INSERT INTO `sys_menu` VALUES ('196', '开发工具', '0', null, null, '#', 'mdi-sword-cross', '1', '4', null, null, null, null, null, '1');
 
 -- ----------------------------
 -- Table structure for sys_role
@@ -190,5 +192,4 @@ CREATE TABLE `sys_user` (
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES ('1', 'ew', '超级管理员', '123456', '2', '1', '123', '1', '123@163.com', '13544672759', '超级管理员', '2020-10-31 19:14:55', '1', '2020-11-03 16:37:41', '1', '1');
-INSERT INTO `sys_user` VALUES ('14', 'zs', '张三', '123456', '1', '12', '1', '1', '1', '135', null, '2020-11-06 15:30:16', null, '2020-11-07 18:34:28', null, '1');
+INSERT INTO `sys_user` VALUES ('1', 'ew', '超级管理员', 'e10adc3949ba59abbe56e057f20f883e', '2', '1', '123', '1', '123@163.com', '13544672759', '超级管理员', '2020-10-31 19:14:55', '1', '2020-11-03 16:37:41', '1', '1');
