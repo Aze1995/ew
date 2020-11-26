@@ -97,7 +97,7 @@
 									<li><a href="javascript:void(0)"><i
 											class="mdi mdi-delete"></i> 清空缓存</a></li>
 									<li class="divider"></li>
-									<li><a href="lyear_pages_login.html"><i
+									<li><a href="javascript:void(0)" onclick="logout()"><i
 											class="mdi mdi-logout-variant"></i> 退出登录</a></li>
 								</ul></li>
 							<!--切换主题配色-->
@@ -219,7 +219,18 @@
 	<script src="js/template-web.js"></script>
 	<script type="text/javascript" src="layui/layui.all.js"></script>
 	<script type="application/javascript">
-		
+	
+	function logout(){
+		$.ajax({
+			type : "POST",
+			url: "/system/logout",
+			context: {},
+			success: function(data) {
+				location.reload();
+			}
+		});
+	}
+	
 		$(function(){
 			$.ajax({
 				url:"/system/user/userInfo",
@@ -234,7 +245,6 @@
 					url: "/system/menu/list",
 					context: {},
 					success: function(data) {
-
 						if(data.code == 0) {
 							console.log(data.data);
 							var html = template('menusHtml', data);
@@ -243,6 +253,7 @@
 						}
 					}
 				});
+				
 
 		});
 		
