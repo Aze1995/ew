@@ -52,50 +52,24 @@
 
               <tbody>
                 <tr>
+                  <th class="text-nowrap" scope="row">用户名</th>
+                  <td>总是水平排列</td>
+                </tr>
+                <tr>
+                  <th class="text-nowrap" scope="row">用户昵称</th>
+                  <td>总是水平排列</td>
+                </tr>
+                <tr>
+                  <th class="text-nowrap" scope="row">部门</th>
+                  <td>总是水平排列</td>
+                </tr>
+                <tr>
                   <th class="text-nowrap" scope="row">栅格系统行为</th>
                   <td>总是水平排列</td>
-                  <td colspan="3">开始是堆叠在一起的，当大于这些阈值时将变为水平排列C</td>
                 </tr>
                 <tr>
-                  <th class="text-nowrap" scope="row"><code>.container</code> 最大宽度</th>
-                  <td>None （自动）</td>
-                  <td>750px</td>
-                  <td>970px</td>
-                  <td>1170px</td>
-                </tr>
-                <tr>
-                  <th class="text-nowrap" scope="row">类前缀</th>
-                  <td><code>.col-xs-</code></td>
-                  <td><code>.col-sm-</code></td>
-                  <td><code>.col-md-</code></td>
-                  <td><code>.col-lg-</code></td>
-                </tr>
-                <tr>
-                  <th class="text-nowrap" scope="row">列（column）数</th>
-                  <td colspan="4">12</td>
-                </tr>
-                <tr>
-                  <th class="text-nowrap" scope="row">最大列（column）宽</th>
-                  <td class="text-muted">自动</td>
-                  <td>~62px</td>
-                  <td>~81px</td>
-                  <td>~97px</td>
-                </tr>
-                <tr>
-                  <th class="text-nowrap" scope="row">槽（gutter）宽</th>
-                  <td colspan="4">30px （每列左右均有 15px）</td>
-                </tr>
-                <tr>
-                  <th class="text-nowrap" scope="row">可嵌套</th>
-                  <td colspan="4">是</td>
-                </tr>
-                <tr>
-                  <th class="text-nowrap" scope="row">偏移（Offsets）</th>
-                  <td colspan="4">是</td>
-                </tr>
-                <tr>
-                  <th class="text-nowrap" scope="row">列排序</th>
-                  <td colspan="4">是</td>
+                  <th class="text-nowrap" scope="row">栅格系统行为</th>
+                  <td>总是水平排列</td>
                 </tr>
               </tbody>
             </table>
@@ -180,11 +154,8 @@ $('#tb_departments').bootstrapTable({
                 editUser(row.id);
             },
             'click .del-btn': function (event, value, row, index) {
-                delUser(row.id);
-            },
-            'click .show-btn': function (event, value, row, index) {
-                showUser(row);
-            }
+            	delUser(row.id);
+            } 
         }
     }], 
     onLoadSuccess: function(data){
@@ -197,7 +168,6 @@ function btnGroup ()
 {
     let html =
         '<a href="#!" class="btn btn-xs btn-default m-r-5 edit-btn" title="编辑" data-toggle="tooltip"><i class="mdi mdi-pencil"></i></a>' +
-        '<a href="#!" class="btn btn-xs btn-default m-r-5 show-btn" title="查看" ><i class="mdi mdi-eye"></i></a>' +
         '<a href="#!" class="btn btn-xs btn-default del-btn" title="删除" data-toggle="tooltip"><i class="mdi mdi-window-close"></i></a>';
     return html;
 }
@@ -208,23 +178,18 @@ function editUser()
     alert('编辑信息跳转');
 }
 // 操作方法 - 删除
-function delUser()
+function delUser(userId)
 {
-    alert('信息删除成功');
-}
-// 操作方法 - 查看
-function showUser(data)
-{
-	$.ajax({ url: "/system/user/query/"+data.userId, 
+	$.ajax({ url: "/system/user/delete/"+userId, 
+		type : "POST",
 		context: document.body, 
 		success: function(result){
-			if(result.code != 0){
-				alert(result.message);
-				return ;
-			}
 			console.log(result);
-			$('.showUser-modal').modal('show')
+			if(result.code != 0){
+				alert('信息删除成功');
+			}
       }});
+    
 }
 </script>
 

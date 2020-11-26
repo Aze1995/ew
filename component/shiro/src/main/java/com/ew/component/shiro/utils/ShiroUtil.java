@@ -62,6 +62,15 @@ public class ShiroUtil {
 	}
 	
 	/**
+	 * 超级管理员
+	 * @param userId	管理员标识
+	 * @return
+	 */
+	public static boolean isAdmin(Long userId) {
+		return userId.equals(DefaultConst.SYSTEM_ADMIN_ID);
+	}
+	
+	/**
 	 * 验证密码
 	 * @param password
 	 * @return

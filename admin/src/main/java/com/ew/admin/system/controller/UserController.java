@@ -135,7 +135,7 @@ public class UserController {
 		if (userId.equals(ShiroUtil.getLoginUser().getUserId())) {
 			return RequestError.business("无法重置当前登入用户");
 		}
-		if (userId.equals(DefaultConst.SYSTEM_ADMIN_ID)) {
+		if (!ShiroUtil.isAdmin(userId)) {
 			return RequestError.badRequest("权限不足");
 		}
 		if (userService.updateUserPassWord(userId, DefaultConst.USER_PASSWORD)) {
@@ -150,6 +150,9 @@ public class UserController {
 	@ActionLog(name = "重置用户密码",type = ActionLogEnum.SYSTEM,key = UserActionSign.USER_DELETE,action = UserActionSign.class)
 	@PostMapping(path = "/delete/{Id}")
 	public ResultDto<Boolean> delete(@NotNull @Min(value = 1) @PathVariable(name = "Id", required = true) Long Id) {
+		if (ShiroUtil.isAdmin(Id)) {
+			return RequestError.badRequest("权限不足");
+		}
 		if (userService.removeById(Id)) {
 			return ResultDtoUtil.success();
 		}

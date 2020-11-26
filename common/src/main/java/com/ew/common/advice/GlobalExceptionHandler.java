@@ -9,13 +9,13 @@ import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import com.ew.common.dto.ResultDto;
-import com.ew.common.utils.HttpServletUtil;
 import com.ew.common.utils.ResultDtoUtil;
 
 import lombok.extern.slf4j.Slf4j;
@@ -49,6 +49,13 @@ public class GlobalExceptionHandler {
 	public ResultDto<String> hadeConstraintViolationException(ConstraintViolationException exception) {
 		ConstraintViolation<?> next = exception.getConstraintViolations().iterator().next();
 		return ResultDtoUtil.RequestError.parameter(next.getPropertyPath()+"-"+next.getMessage()); 
+	}
+	
+	/** 请求方式有误*/
+	@ExceptionHandler(value = HttpRequestMethodNotSupportedException.class)
+	public ResultDto<String> hadeHttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException e, HttpServletRequest req) {
+		log.error("请求接口方式有误 - 请求接口[{}]  ",req.getRequestURL().toString(), e);
+		return ResultDtoUtil.RequestError.parameter("请求方式有误"); 
 	}
 	
 	/** 请求方法参数类型转换异常*/
