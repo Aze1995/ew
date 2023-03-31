@@ -26,6 +26,7 @@
 		<swagger-bootstrap-ui.version>1.9.6</swagger-bootstrap-ui.version>
 		<mybatis-plus-generator.version>3.4.0</mybatis-plus-generator.version>
 		<velocity-engine-core.version>2.2</velocity-engine-core.version>
+		<hutool.version>5.8.0</hutool.version>
 		<ew.version>1.0-SNAPSHOT</ew.version>
 	</properties> 
 
@@ -115,6 +116,12 @@
 				<artifactId>springfox-swagger-ui</artifactId>
 				<version>${swagger.ui.version}</version>
 			</dependency>
+			<!-- hutool 工具包 -->
+			<dependency>
+			    <groupId>cn.hutool</groupId>
+			    <artifactId>hutool-all</artifactId>
+			    <version>${hutool.version}</version>
+			</dependency>
 			<!-- Swagger Bootstrap UI 样式 -->
 			<dependency>
 				<groupId>com.github.xiaoymin</groupId>
@@ -127,7 +134,6 @@
 				<artifactId>commons-io</artifactId>
 				<version>${commons.io.version}</version>
 			</dependency>
-
 
 			<!-- 公共模块 -->
 			<dependency>

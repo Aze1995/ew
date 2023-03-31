@@ -1,8 +1,8 @@
 package com.ew.component.shiro.utils;
 
-import java.security.NoSuchAlgorithmException;
 
-import com.ew.common.utils.MD5Util;
+import cn.hutool.crypto.digest.DigestUtil;
+
 
 /**
  * 密码工具
@@ -28,11 +28,7 @@ public class PasswordUtil {
 	 * @return
 	 */
 	public static String encrypt(String password) {
-		try {
-			return MD5Util.MD5_32bit(password);
-		} catch (NoSuchAlgorithmException e) {
-			return "";
-		}
+		return DigestUtil.md5Hex(password);
 	}
 	
 }
